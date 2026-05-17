@@ -61,29 +61,42 @@
             </div>
 
             <!-- Place Bid Form (only if active and not owner) -->
-            @if($auction->status === 'active' && $auction->end_time > now() && $auction->user_id !== Auth::id())
-                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg mb-6">
-                    <div class="p-6">
-                        <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100 mb-4">Place a Bid</h3>
-                        <form id="bidForm" class="flex gap-3">
-                            @csrf
-                            <input type="hidden" name="auction_id" value="{{ $auction->id }}">
-                            <div class="flex-1">
-                                <input type="number" name="amount" id="bidAmount" step="1" min="{{ $auction->current_price + 1 }}"
-                                       placeholder="Min bid: ₹{{ number_format($auction->current_price + 1) }}"
-                                       class="w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-[#C5A880]/30 focus:border-[#C5A880]"
-                                       required>
-                                <span class="text-xs text-gray-400 dark:text-zinc-500 mt-1 block">Minimum bid: ₹{{ number_format($auction->current_price + 1) }}</span>
+            @if($auction->status === 'active' && $auction->end_time > now())
+                @auth
+                    @if($auction->user_id !== Auth::id())
+                        <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg mb-6">
+                            <div class="p-6">
+                                <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100 mb-4">Place a Bid</h3>
+                                <form id="bidForm" class="flex gap-3">
+                                    @csrf
+                                    <input type="hidden" name="auction_id" value="{{ $auction->id }}">
+                                    <div class="flex-1">
+                                        <input type="number" name="amount" id="bidAmount" step="1" min="{{ $auction->current_price + 1 }}"
+                                               placeholder="Min bid: ₹{{ number_format($auction->current_price + 1) }}"
+                                               class="w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-[#C5A880]/30 focus:border-[#C5A880]"
+                                               required>
+                                        <span class="text-xs text-gray-400 dark:text-zinc-500 mt-1 block">Minimum bid: ₹{{ number_format($auction->current_price + 1) }}</span>
+                                    </div>
+                                    <button type="submit"
+                                            class="px-6 py-2 bg-gray-950 dark:bg-[#C5A880] text-white dark:text-black font-semibold rounded-md hover:bg-gray-800 dark:hover:bg-[#B3966E] transition duration-150 disabled:opacity-50"
+                                            id="bidBtn">
+                                        Place Bid
+                                    </button>
+                                </form>
+                                <div id="bidMessage" class="mt-3"></div>
                             </div>
-                            <button type="submit"
-                                    class="px-6 py-2 bg-gray-950 dark:bg-[#C5A880] text-white dark:text-black font-semibold rounded-md hover:bg-gray-800 dark:hover:bg-[#B3966E] transition duration-150 disabled:opacity-50"
-                                    id="bidBtn">
-                                Place Bid
-                            </button>
-                        </form>
-                        <div id="bidMessage" class="mt-3"></div>
+                        </div>
+                    @endif
+                @else
+                    <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg mb-6">
+                        <div class="p-6 text-center">
+                            <p class="text-sm font-semibold text-gray-800 dark:text-zinc-200">You must be logged in to place a bid.</p>
+                            <a href="{{ route('login') }}" class="inline-flex justify-center items-center mt-3 px-6 py-2.5 text-xs font-bold text-white dark:text-black bg-gray-950 dark:bg-[#C5A880] hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md transition duration-150">
+                                Log In
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endauth
             @endif
 
             <!-- Bids History -->
