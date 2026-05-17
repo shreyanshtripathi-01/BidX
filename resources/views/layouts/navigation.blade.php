@@ -104,9 +104,15 @@
                     @endif
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                            {{ __('Register') }}
-                        </a>
+                        @if(request()->routeIs('home'))
+                            <button @click="$dispatch('register-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                                {{ __('Register') }}
+                            </button>
+                        @else
+                            <a href="{{ route('register') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                                {{ __('Register') }}
+                            </a>
+                        @endif
                     @endif
                 @endauth
             </div>
@@ -191,9 +197,15 @@
                     @endif
 
                     @if (Route::has('register'))
-                        <x-responsive-nav-link :href="route('register')">
-                            {{ __('Register') }}
-                        </x-responsive-nav-link>
+                        @if(request()->routeIs('home'))
+                            <button @click="$dispatch('register-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
+                                {{ __('Register') }}
+                            </button>
+                        @else
+                            <x-responsive-nav-link :href="route('register')">
+                                {{ __('Register') }}
+                            </x-responsive-nav-link>
+                        @endif
                     @endif
                 </div>
             @endauth
