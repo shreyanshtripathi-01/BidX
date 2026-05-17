@@ -17,15 +17,9 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @else
-                        @if(request()->routeIs('home'))
-                            <x-nav-link href="#" @click.prevent="$dispatch('login-modal')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link :href="route('login')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @endif
+                        <x-nav-link href="#" @click.prevent="$dispatch('login-modal')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
                     @endauth
 
                     <x-nav-link :href="route('auctions.index')" :active="request()->routeIs('auctions.index')">
@@ -105,26 +99,14 @@
                         </x-slot>
                     </x-dropdown>
                 @else
-                    @if(request()->routeIs('home'))
-                        <button @click="$dispatch('login-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                            {{ __('Log in') }}
-                        </button>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                            {{ __('Log in') }}
-                        </a>
-                    @endif
+                    <button @click="$dispatch('login-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                        {{ __('Log in') }}
+                    </button>
 
                     @if (Route::has('register'))
-                        @if(request()->routeIs('home'))
-                            <button @click="$dispatch('register-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                                {{ __('Register') }}
-                            </button>
-                        @else
-                            <a href="{{ route('register') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                                {{ __('Register') }}
-                            </a>
-                        @endif
+                        <button @click="$dispatch('register-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                            {{ __('Register') }}
+                        </button>
                     @endif
                 @endauth
             </div>
@@ -149,15 +131,9 @@
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
             @else
-                @if(request()->routeIs('home'))
-                    <button @click="$dispatch('login-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
-                        {{ __('Dashboard') }}
-                    </button>
-                @else
-                    <x-responsive-nav-link :href="route('login')">
-                        {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
-                @endif
+                <button @click="$dispatch('login-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
+                    {{ __('Dashboard') }}
+                </button>
             @endauth
 
             <x-responsive-nav-link :href="route('auctions.index')" :active="request()->routeIs('auctions.index')">
@@ -210,26 +186,14 @@
                 </div>
             @else
                 <div class="px-4 py-2 space-y-1">
-                    @if(request()->routeIs('home'))
-                        <button @click="$dispatch('login-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
-                            {{ __('Log in') }}
-                        </button>
-                    @else
-                        <x-responsive-nav-link :href="route('login')">
-                            {{ __('Log in') }}
-                        </x-responsive-nav-link>
-                    @endif
+                    <button @click="$dispatch('login-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
+                        {{ __('Log in') }}
+                    </button>
 
                     @if (Route::has('register'))
-                        @if(request()->routeIs('home'))
-                            <button @click="$dispatch('register-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
-                                {{ __('Register') }}
-                            </button>
-                        @else
-                            <x-responsive-nav-link :href="route('register')">
-                                {{ __('Register') }}
-                            </x-responsive-nav-link>
-                        @endif
+                        <button @click="$dispatch('register-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
+                            {{ __('Register') }}
+                        </button>
                     @endif
                 </div>
             @endauth
