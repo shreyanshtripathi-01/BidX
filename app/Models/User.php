@@ -52,7 +52,7 @@ class User extends Authenticatable
      */
     public function isAdmin(): bool
     {
-        return $this->email === 'admin@auctionplatform.com';
+        return str_ends_with($this->email, '@bidx.com');
     }
 
     /**
