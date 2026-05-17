@@ -1,22 +1,30 @@
 <x-app-layout>
+<div x-data="{ showLoginModal: false }" @login-modal.window="showLoginModal = true" class="relative">
     <!-- Simple spacious hero -->
     <div class="py-24 bg-white dark:bg-[#0A0A0A] border-b border-gray-150 dark:border-zinc-900">
         <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-zinc-100 tracking-tight leading-tight mb-6">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-zinc-100 tracking-tight leading-tight mb-6">
                 An Online Auction Platform to List and Bid in Real-Time
             </h1>
             <p class="text-base sm:text-lg text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
                 Create your own auctions, place bids in real-time, and get notified instantly when you win. Our platform makes listing and bidding simple and straightforward.
             </p>
             <div class="flex justify-center gap-4">
-                <a href="{{ route('dashboard') }}"
-                   class="inline-flex justify-center items-center px-6 py-3.5 text-sm font-semibold rounded-md text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] shadow-sm transition duration-150">
-                    Go to Dashboard
-                </a>
-                <a href="#about-platform"
-                   class="inline-flex justify-center items-center px-6 py-3.5 text-sm font-semibold rounded-md text-gray-700 dark:text-zinc-300 bg-gray-50 dark:bg-[#121212] hover:bg-gray-100 dark:hover:bg-[#1E1E1E] border border-gray-200 dark:border-zinc-800 transition duration-150">
-                    How it Works
-                </a>
+                @auth
+                    <a href="{{ route('dashboard') }}"
+                       class="inline-flex justify-center items-center px-6 py-3.5 text-sm font-semibold rounded-md text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] shadow-sm transition duration-150">
+                        Go to Dashboard
+                    </a>
+                @else
+                    <button @click="showLoginModal = true"
+                            class="inline-flex justify-center items-center px-6 py-3.5 text-sm font-semibold rounded-md text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] shadow-sm transition duration-150">
+                        Log In
+                    </button>
+                    <a href="{{ route('register') }}"
+                       class="inline-flex justify-center items-center px-6 py-3.5 text-sm font-semibold rounded-md text-gray-700 dark:text-zinc-300 bg-gray-50 dark:bg-[#121212] hover:bg-gray-100 dark:hover:bg-[#1E1E1E] border border-gray-200 dark:border-zinc-800 transition duration-150">
+                        Register
+                    </a>
+                @endauth
             </div>
         </div>
     </div>
@@ -176,4 +184,89 @@
             </div>
         </div>
     </footer>
+
+    <!-- Beautiful, blurred-background Login Modal -->
+    <div x-show="showLoginModal" 
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+         x-transition:enter="ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         style="display: none;">
+        
+        <!-- Blurred backdrop -->
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity" @click="showLoginModal = false"></div>
+
+        <!-- Modal content card -->
+        <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10 transform transition-all"
+             x-transition:enter="ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95">
+            
+            <!-- Close button -->
+            <button @click="showLoginModal = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-650 dark:hover:text-zinc-300 text-2xl leading-none">
+                &times;
+            </button>
+
+            <!-- Logo & Title -->
+            <div class="text-center mb-6">
+                <div class="inline-block mb-4">
+                    <x-application-logo class="w-24 h-auto text-gray-900 dark:text-zinc-150" />
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-zinc-100">
+                    Log In to BidX
+                </h3>
+                <p class="text-xs text-gray-500 dark:text-zinc-400 mt-1">
+                    Enter your credentials to manage listings and bid.
+                </p>
+            </div>
+
+            <!-- Login Form inside Modal -->
+            <form method="POST" action="{{ route('login') }}" class="space-y-4">
+                @csrf
+
+                <!-- Email Address -->
+                <div class="space-y-1">
+                    <x-input-label for="modal_email" :value="__('Email')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
+                    <x-text-input id="modal_email" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                </div>
+
+                <!-- Password -->
+                <div class="space-y-1">
+                    <x-input-label for="modal_password" :value="__('Password')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
+                    <x-text-input id="modal_password" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
+                                    type="password"
+                                    name="password"
+                                    required autocomplete="current-password" />
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center justify-between pt-1">
+                    <label for="modal_remember_me" class="inline-flex items-center">
+                        <input id="modal_remember_me" type="checkbox" class="rounded border-gray-300 text-amber-600 shadow-sm focus:ring-amber-500" name="remember">
+                        <span class="ms-2 text-xs text-gray-500 dark:text-zinc-450">{{ __('Remember me') }}</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full inline-flex justify-center items-center py-2.5 px-4 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md shadow-sm transition duration-150">
+                        {{ __('Log In') }}
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center pt-4 mt-4 border-t border-gray-100 dark:border-zinc-900">
+                <a href="{{ route('register') }}" class="text-xs font-semibold text-amber-600 dark:text-[#C5A880] hover:underline">
+                    New to BidX? Create an Account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </x-app-layout>

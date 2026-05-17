@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-4 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -93,12 +93,18 @@
                         </x-slot>
                     </x-dropdown>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
-                        {{ __('Log in') }}
-                    </a>
+                    @if(request()->routeIs('home'))
+                        <button @click="$dispatch('login-modal')" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                            {{ __('Log in') }}
+                        </button>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                            {{ __('Log in') }}
+                        </a>
+                    @endif
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="text-sm font-medium text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
+                        <a href="{{ route('register') }}" class="text-sm font-medium text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-200">
                             {{ __('Register') }}
                         </a>
                     @endif
@@ -174,9 +180,15 @@
                 </div>
             @else
                 <div class="px-4 py-2 space-y-1">
-                    <x-responsive-nav-link :href="route('login')">
-                        {{ __('Log in') }}
-                    </x-responsive-nav-link>
+                    @if(request()->routeIs('home'))
+                        <button @click="$dispatch('login-modal')" class="block w-full text-left px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-900 transition-colors">
+                            {{ __('Log in') }}
+                        </button>
+                    @else
+                        <x-responsive-nav-link :href="route('login')">
+                            {{ __('Log in') }}
+                        </x-responsive-nav-link>
+                    @endif
 
                     @if (Route::has('register'))
                         <x-responsive-nav-link :href="route('register')">

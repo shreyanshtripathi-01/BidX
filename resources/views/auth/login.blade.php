@@ -18,36 +18,15 @@
     <div class="min-h-screen flex flex-col md:flex-row">
         
         <!-- Left Side: Human Intro & Platform Objective (Visible on Desktop) -->
-        <div class="hidden md:flex md:w-1/2 bg-[#FAF8F4] dark:bg-[#0E0E0D] border-r border-gray-150 dark:border-zinc-900 flex-col justify-between p-16">
-            <div class="flex items-center gap-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-[#C5A880]">Real-Time Auction Platform</span>
-            </div>
-            
+        <div class="hidden md:flex md:w-1/2 bg-[#FAF8F4] dark:bg-[#0E0E0D] border-r border-gray-150 dark:border-zinc-900 flex-col justify-center p-16">
             <div class="space-y-6 max-w-md">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-[#C5A880]">Real-Time Auction Platform</span>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-zinc-100 tracking-tight leading-tight">
                     Welcome back to BidX
                 </h1>
-                <p class="text-sm text-gray-500 dark:text-zinc-400 leading-relaxed">
+                <p class="text-sm text-gray-550 dark:text-zinc-400 leading-relaxed">
                     An online auction platform built for listing and bidding on items in real-time. Create auctions, place bids, and receive instant notifications when you win.
                 </p>
-                <div class="pt-6 border-t border-gray-200 dark:border-zinc-800 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
-                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Place instant real-time bids</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
-                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Create and list your own auctions</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
-                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Receive win notifications immediately</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-xxs text-gray-400 dark:text-zinc-500">
-                &copy; {{ date('Y') }} BidX Platform. Handcrafted for transparent bidding.
             </div>
         </div>
 
