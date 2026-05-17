@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <style>
+        .x-bar-primary {
+            fill: #111827; /* Dark Gray for light mode */
+        }
+        .x-bar-secondary {
+            fill: #d97706; /* Amber-600 for light mode */
+        }
+        @media (prefers-color-scheme: dark) {
+            .x-bar-primary {
+                fill: #f4f4f5; /* Zinc-100 for dark mode */
+            }
+            .x-bar-secondary {
+                fill: #C5A880; /* Gold/Champagne for dark mode */
+            }
+        }
+    </style>
+    <!-- Overlapping rotated premium pill-shape X bars -->
+    <rect x="13" y="2" width="6" height="28" rx="3" transform="rotate(45 16 16)" class="x-bar-primary" />
+    <rect x="13" y="2" width="6" height="28" rx="3" transform="rotate(-45 16 16)" class="x-bar-secondary" />
+</svg>
