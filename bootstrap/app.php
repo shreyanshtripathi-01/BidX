@@ -5,6 +5,30 @@ if (file_exists(__DIR__.'/cache/config.php')) {
     @unlink(__DIR__.'/cache/config.php');
 }
 
+// Dynamically align Railway MySQL environment variables with Laravel expectations.
+$mappings = [
+    'DB_HOST' => ['MYSQLHOST', 'MYSQL_HOST'],
+    'DB_PORT' => ['MYSQLPORT', 'MYSQL_PORT'],
+    'DB_DATABASE' => ['MYSQLDATABASE', 'MYSQL_DATABASE'],
+    'DB_USERNAME' => ['MYSQLUSER', 'MYSQL_USER', 'MYSQLUSERNAME'],
+    'DB_PASSWORD' => ['MYSQLPASSWORD', 'MYSQL_PASSWORD'],
+];
+
+foreach ($mappings as $laravelVar => $railwayVars) {
+    $currentVal = getenv($laravelVar);
+    if ($currentVal === false || $currentVal === '') {
+        foreach ($railwayVars as $railwayVar) {
+            $railwayVal = getenv($railwayVar);
+            if ($railwayVal !== false && $railwayVal !== '') {
+                $_ENV[$laravelVar] = $railwayVal;
+                $_SERVER[$laravelVar] = $railwayVal;
+                putenv("{$laravelVar}={$railwayVal}");
+                break;
+            }
+        }
+    }
+}
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
