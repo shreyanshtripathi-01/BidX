@@ -59,7 +59,6 @@
                     <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden">
                         <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
                             <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Your Ongoing Bidding Activity</h3>
-                            <span class="px-2.5 py-0.5 text-xxs font-bold uppercase tracking-wider bg-amber-50 text-amber-800 dark:bg-[#C5A880]/10 dark:text-[#C5A880] rounded-full">Live Status</span>
                         </div>
 
                         @php

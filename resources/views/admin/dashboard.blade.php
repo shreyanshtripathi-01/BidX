@@ -4,66 +4,106 @@
             <h2 class="font-bold text-xl text-gray-900 dark:text-zinc-100 leading-tight tracking-tight">
                 {{ __('Dashboard') }}
             </h2>
-            <span class="text-xs font-semibold text-gray-400 dark:text-zinc-500">
+            <span class="text-xs font-semibold text-gray-400 dark:text-zinc-550">
                 Administrator
             </span>
         </div>
     </x-slot>
 
     <div class="space-y-8 pt-2">
-        <!-- Symmetrical Premium Metrics Grid (5 beautiful parameters!) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <!-- Registered Accounts -->
-            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
-                <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Registered Accounts</p>
-                <div class="flex items-baseline mt-2">
-                    <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
-                        {{ number_format($stats['total_users']) }}
-                    </span>
-                    <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-500">users</span>
+        <!-- Metric Cards Layout: 8 Cards in a 4+4 Grid (4 on Row 1, 4 on Row 2) -->
+        <div class="space-y-6">
+            <!-- Row 1: Core Platform Growth -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Registered Accounts -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Registered Accounts</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            {{ number_format($stats['total_users']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">users</span>
+                    </div>
+                </div>
+
+                <!-- Live Lots -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Live Lots</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            {{ number_format($stats['active_auctions']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">active</span>
+                    </div>
+                </div>
+
+                <!-- Settled Lots -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Settled Lots</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            {{ number_format($stats['ended_auctions']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">closed</span>
+                    </div>
+                </div>
+
+                <!-- Gross Revenue -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Gross Revenue</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            ₹{{ number_format($stats['total_revenue']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">INR</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Live Lots -->
-            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
-                <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Live Lots</p>
-                <div class="flex items-baseline mt-2">
-                    <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
-                        {{ number_format($stats['active_auctions']) }}
-                    </span>
-                    <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-500">active</span>
+            <!-- Row 2: Bidding & Inventory Analytics -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Bids Placed -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Bids Placed</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            {{ number_format($stats['total_bids']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">total</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Settled Lots -->
-            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
-                <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Settled Lots</p>
-                <div class="flex items-baseline mt-2">
-                    <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
-                        {{ number_format($stats['ended_auctions']) }}
-                    </span>
-                    <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-500">closed</span>
+                <!-- Average Bid -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Average Bid</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            ₹{{ number_format($stats['avg_bid']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">avg</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Bids Placed -->
-            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
-                <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Bids Placed</p>
-                <div class="flex items-baseline mt-2">
-                    <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
-                        {{ number_format($stats['total_bids']) }}
-                    </span>
-                    <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-500">total</span>
+                <!-- Active Bidders -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Active Bidders</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            {{ number_format($stats['active_bidders']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">bidders</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Gross Revenue -->
-            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
-                <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Gross Revenue</p>
-                <div class="flex items-baseline mt-2">
-                    <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
-                        ₹{{ number_format($stats['total_revenue']) }}
-                    </span>
+                <!-- Active Inventory -->
+                <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Active Inventory</p>
+                    <div class="flex items-baseline mt-2">
+                        <span class="text-2xl font-extrabold text-gray-900 dark:text-zinc-100">
+                            ₹{{ number_format($stats['inventory_value']) }}
+                        </span>
+                        <span class="ml-1.5 text-xs font-semibold text-gray-400 dark:text-zinc-550">value</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,7 +118,6 @@
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
                         <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Recent Listings</h3>
-                        <span class="px-2.5 py-0.5 text-xxs font-bold uppercase tracking-wider bg-amber-50 text-amber-800 dark:bg-[#C5A880]/10 dark:text-[#C5A880] rounded-full">Overview</span>
                     </div>
                     <div class="divide-y divide-gray-100 dark:divide-zinc-900">
                         @forelse($recentAuctions as $auction)
@@ -115,7 +154,7 @@
                             <div class="p-6 flex items-center justify-between hover:bg-gray-50/50 dark:hover:bg-[#121212]/30 transition-colors">
                                 <div class="min-w-0 pr-4 space-y-1">
                                     <p class="text-sm font-semibold text-gray-900 dark:text-zinc-200">{{ $bid->user->name }}</p>
-                                    <p class="text-xs text-gray-450 dark:text-zinc-550 truncate">{{ $bid->auction->title }}</p>
+                                    <p class="text-xs text-gray-455 dark:text-zinc-550 truncate">{{ $bid->auction->title }}</p>
                                 </div>
                                 <div class="text-right shrink-0">
                                     <p class="text-sm font-extrabold text-green-600 dark:text-green-400">₹{{ number_format($bid->amount) }}</p>

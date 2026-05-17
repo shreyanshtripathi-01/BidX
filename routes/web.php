@@ -29,11 +29,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         if (auth()->user()->isAdmin()) {
             $stats = [
                 'total_users' => \App\Models\User::count(),
-                'total_auctions' => \App\Models\Auction::count(),
                 'active_auctions' => \App\Models\Auction::where('status', 'active')->count(),
                 'ended_auctions' => \App\Models\Auction::where('status', 'ended')->count(),
-                'total_bids' => \App\Models\Bid::count(),
                 'total_revenue' => \App\Models\Payment::where('status', 'completed')->sum('amount'),
+                'total_bids' => \App\Models\Bid::count(),
+                'avg_bid' => \App\Models\Bid::avg('amount') ?? 0,
+                'active_bidders' => \App\Models\Bid::distinct('user_id')->count('user_id'),
+                'inventory_value' => \App\Models\Auction::where('status', 'active')->sum('current_price'),
             ];
 
             $recentAuctions = \App\Models\Auction::latest()->withCount('bids')->take(5)->get();
