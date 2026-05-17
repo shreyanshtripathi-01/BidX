@@ -1,47 +1,132 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <title>{{ __('Log In - BidX') }}</title>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,900&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="font-sans text-gray-900 antialiased bg-gray-50 dark:bg-[#0A0A0A]">
+    <div class="min-h-screen flex flex-col md:flex-row">
+        
+        <!-- Left Side: Human Intro & Platform Objective (Visible on Desktop) -->
+        <div class="hidden md:flex md:w-1/2 bg-[#FAF8F4] dark:bg-[#0E0E0D] border-r border-gray-150 dark:border-zinc-900 flex-col justify-between p-16">
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-[#C5A880]">Real-Time Auction Platform</span>
+            </div>
+            
+            <div class="space-y-6 max-w-md">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-zinc-100 tracking-tight leading-tight">
+                    Welcome back to BidX
+                </h1>
+                <p class="text-sm text-gray-500 dark:text-zinc-400 leading-relaxed">
+                    An online auction platform built for listing and bidding on items in real-time. Create auctions, place bids, and receive instant notifications when you win.
+                </p>
+                <div class="pt-6 border-t border-gray-200 dark:border-zinc-800 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
+                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Place instant real-time bids</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
+                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Create and list your own auctions</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-600 dark:text-[#C5A880] text-sm">✓</span>
+                        <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">Receive win notifications immediately</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xxs text-gray-400 dark:text-zinc-500">
+                &copy; {{ date('Y') }} BidX Platform. Handcrafted for transparent bidding.
+            </div>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Right Side: Clean, Spacious, Human Login Form -->
+        <div class="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 md:p-20 bg-white dark:bg-[#0A0A0A]">
+            <div class="w-full max-w-md space-y-8">
+                
+                <!-- Header Actions -->
+                <div class="flex justify-between items-center">
+                    <a href="/" class="inline-flex items-center text-xs font-bold text-gray-400 dark:text-zinc-500 hover:text-gray-900 dark:hover:text-zinc-200 transition-colors">
+                        ← Back to Home
+                    </a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="text-xs font-bold text-amber-600 dark:text-[#C5A880] hover:underline">
+                            Create an Account
+                        </a>
+                    @endif
+                </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                <!-- Logo Section (Bolder & Larger) -->
+                <div class="pt-4">
+                    <x-application-logo class="w-32 h-auto text-gray-900 dark:text-zinc-150" />
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-zinc-100 mt-6">
+                        Log In to your Account
+                    </h2>
+                    <p class="text-xs text-gray-400 dark:text-zinc-550 mt-1">
+                        Please enter your registered credentials to enter the member portal.
+                    </p>
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <!-- Session Status -->
+                <x-auth-session-status class="mb-4 text-xs font-semibold text-green-600" :status="session('status')" />
+
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @csrf
+
+                    <!-- Email Address -->
+                    <div class="space-y-1">
+                        <x-input-label for="email" :value="__('Email')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
+                        <x-text-input id="email" class="block w-full px-4 py-2.5 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs text-red-500" />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="space-y-1">
+                        <x-input-label for="password" :value="__('Password')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
+                        <x-text-input id="password" class="block w-full px-4 py-2.5 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                                        type="password"
+                                        name="password"
+                                        required autocomplete="current-password" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-xs text-red-500" />
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between">
+                        <label for="remember_me" class="inline-flex items-center">
+                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-amber-600 shadow-sm focus:ring-amber-500" name="remember">
+                            <span class="ms-2 text-xs text-gray-500 dark:text-zinc-450">{{ __('Remember me') }}</span>
+                        </label>
+                    </div>
+
+                    <!-- Actions -->
+                    <div>
+                        <button type="submit" class="w-full inline-flex justify-center items-center py-3 px-6 text-sm font-bold text-white bg-gray-950 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md shadow-sm transition duration-150">
+                            {{ __('Log In') }}
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Mobile Navigation helper -->
+                <div class="md:hidden text-center pt-4 border-t border-gray-100 dark:border-zinc-900">
+                    <p class="text-xxs text-gray-400 dark:text-zinc-500">
+                        &copy; {{ date('Y') }} BidX Platform. Handcrafted for transparent bidding.
+                    </p>
+                </div>
+
+            </div>
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+</body>
+</html>
