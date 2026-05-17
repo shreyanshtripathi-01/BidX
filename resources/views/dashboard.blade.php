@@ -5,8 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="space-y-6 pt-2">
 
             <!-- Member Analytics Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -172,9 +171,6 @@
                             @endforelse
                         </div>
                     </div>
-                </div>
             </div>
-
         </div>
-    </div>
 </x-app-layout>
