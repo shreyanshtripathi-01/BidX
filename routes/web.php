@@ -27,7 +27,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Standard User Dashboard
     Route::get('/dashboard', function () {
         if (auth()->user()->isAdmin()) {
-            return redirect()->route('admin.dashboard');
+            $stats = [
+                'total_users' => \App\Models\User::count(),
+                'total_auctions' => \App\Models\Auction::count(),
+                'active_auctions' => \App\Models\Auction::where('status', 'active')->count(),
+                'ended_auctions' => \App\Models\Auction::where('status', 'ended')->count(),
+                'total_bids' => \App\Models\Bid::count(),
+                'total_revenue' => \App\Models\Payment::where('status', 'completed')->sum('amount'),
+            ];
+
+            $recentAuctions = \App\Models\Auction::latest()->withCount('bids')->take(5)->get();
+            $recentBids = \App\Models\Bid::with(['auction', 'user'])->latest()->take(10)->get();
+
+            return view('admin.dashboard', compact('stats', 'recentAuctions', 'recentBids'));
         }
         return view('dashboard');
     })->name('dashboard');
@@ -62,7 +74,9 @@ Route::get('/auctions/{auction}', [AuctionController::class, 'show'])->name('auc
 
 // Admin panel
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', function() {
+        return redirect()->route('dashboard');
+    })->name('dashboard');
     Route::resource('auctions', AdminAuctionController::class);
     Route::post('/auctions/{auction}/end', [AdminAuctionController::class, 'endAuction'])->name('auctions.end');
     
