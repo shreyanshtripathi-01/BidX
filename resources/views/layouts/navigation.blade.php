@@ -27,13 +27,15 @@
                     </x-nav-link>
 
                     @auth
-                        <x-nav-link :href="route('auctions.create')" :active="request()->routeIs('auctions.create')">
-                            {{ __('Create Auction') }}
-                        </x-nav-link>
+                        @if(Auth::user()->isAdmin())
+                            <x-nav-link :href="route('auctions.create')" :active="request()->routeIs('auctions.create')">
+                                {{ __('Create Auction') }}
+                            </x-nav-link>
 
-                        <x-nav-link :href="route('auctions.my')" :active="request()->routeIs('auctions.my')">
-                            {{ __('My Auctions') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('auctions.my')" :active="request()->routeIs('auctions.my')">
+                                {{ __('My Auctions') }}
+                            </x-nav-link>
+                        @endif
 
                         <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
                             {{ __('Notifications') }}
@@ -141,13 +143,15 @@
             </x-responsive-nav-link>
 
             @auth
-                <x-responsive-nav-link :href="route('auctions.create')" :active="request()->routeIs('auctions.create')">
-                    {{ __('Create Auction') }}
-                </x-responsive-nav-link>
+                @if(Auth::user()->isAdmin())
+                    <x-responsive-nav-link :href="route('auctions.create')" :active="request()->routeIs('auctions.create')">
+                        {{ __('Create Auction') }}
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('auctions.my')" :active="request()->routeIs('auctions.my')">
-                    {{ __('My Auctions') }}
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('auctions.my')" :active="request()->routeIs('auctions.my')">
+                        {{ __('My Auctions') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <x-responsive-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
                     {{ __('Notifications') }}

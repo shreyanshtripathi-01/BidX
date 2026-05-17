@@ -31,8 +31,11 @@ class AuctionController extends Controller
     /**
      * Show the form for creating a new auction.
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->route('dashboard')->with('error', 'Unauthorized. Only administrators can list new auctions.');
+        }
         return view('auctions.create');
     }
 
@@ -41,6 +44,9 @@ class AuctionController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->route('dashboard')->with('error', 'Unauthorized. Only administrators can list new auctions.');
+        }
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -88,8 +94,12 @@ class AuctionController extends Controller
     /**
      * Show auctions created by the current user.
      */
-    public function myAuctions(): View
+    public function myAuctions(): View|RedirectResponse
     {
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
+        }
+
         $auctions = Auction::where('user_id', Auth::id())
             ->withCount('bids')
             ->orderBy('created_at', 'desc')

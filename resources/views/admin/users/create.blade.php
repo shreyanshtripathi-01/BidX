@@ -1,70 +1,75 @@
-@extends('layouts.admin')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+            {{ __('Add New User') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="flex items-center space-x-4 mb-6">
-        <a href="{{ route('admin.users') }}" class="text-gray-500 hover:text-gray-700 transition">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-        </a>
-        <h1 class="text-2xl font-bold text-gray-900">Create New User</h1>
-    </div>
+    <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
+        <div class="max-w-2xl mx-auto space-y-6">
 
-    <div class="bg-white overflow-hidden shadow rounded-xl border border-gray-100">
-        <div class="p-8">
-            <form method="POST" action="{{ route('admin.users.store') }}" class="space-y-6">
-                @csrf
-
-                <!-- Name -->
+            <!-- Back navigation header -->
+            <div class="flex items-center space-x-4">
+                <a href="{{ route('admin.users') }}" class="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </a>
                 <div>
-                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror">
-                    @error('name')
-                        <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
+                    <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Add System User</h3>
+                    <p class="text-xs text-gray-400 dark:text-zinc-550">Create a verified user or administrator account.</p>
                 </div>
+            </div>
 
-                <!-- Email Address -->
-                <div>
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-500 @enderror">
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Form Card -->
+            <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
+                <div class="p-8">
+                    <form method="POST" action="{{ route('admin.users.store') }}" class="space-y-6">
+                        @csrf
 
-                <!-- Password -->
-                <div>
-                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
-                    <input type="password" name="password" id="password" required
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror">
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
+                        <!-- Name -->
+                        <div>
+                            <x-input-label for="name" :value="__('Full Name')" />
+                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name')" required autofocus autocomplete="name" />
+                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                        </div>
 
-                <!-- Confirm Password -->
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" required
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
+                        <!-- Email Address -->
+                        <div>
+                            <x-input-label for="email" :value="__('Email Address')" />
+                            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email')" required autocomplete="username" />
+                            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                        </div>
 
-                <div class="pt-4 border-t border-gray-100 flex items-center justify-end space-x-3">
-                    <a href="{{ route('admin.users') }}" 
-                       class="px-5 py-2.5 border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">
-                        Cancel
-                    </a>
-                    <button type="submit" 
-                            class="px-5 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition shadow-sm">
-                        Create User Account
-                    </button>
+                        <!-- Password -->
+                        <div>
+                            <x-input-label for="password" :value="__('Password')" />
+                            <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+                            <x-input-error class="mt-2" :messages="$errors->get('password')" />
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div>
+                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
+                            <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="pt-6 border-t border-gray-100 dark:border-zinc-900 flex items-center justify-end space-x-3">
+                            <a href="{{ route('admin.users') }}" 
+                               class="px-4 py-2 border border-gray-250 dark:border-zinc-800 text-gray-700 dark:text-zinc-300 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-zinc-900 rounded-md text-xs font-bold transition duration-150">
+                                Cancel
+                            </a>
+                            <button type="submit" 
+                                    class="inline-flex justify-center items-center px-4 py-2 text-xs font-bold rounded-md text-white dark:text-black bg-gray-950 dark:bg-[#C5A880] hover:bg-gray-800 dark:hover:bg-[#B3966E] transition duration-150">
+                                Create Account
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
         </div>
     </div>
-</div>
-@endsection
+</x-app-layout>

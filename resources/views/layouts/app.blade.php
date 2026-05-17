@@ -44,7 +44,19 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                @if(session('success'))
+                    <div class="mb-6 p-4 rounded-md border border-green-200 bg-green-50 text-sm font-semibold text-green-850 dark:bg-green-950/20 dark:border-green-900/50 dark:text-green-400">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="mb-6 p-4 rounded-md border border-red-200 bg-red-50 text-sm font-semibold text-red-850 dark:bg-red-950/20 dark:border-red-900/50 dark:text-red-400">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 {{ $slot }}
             </main>
 
