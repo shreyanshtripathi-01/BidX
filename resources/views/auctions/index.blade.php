@@ -1,6 +1,7 @@
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            {{ __('Heritage Auction Lots') }}
+            {{ __('Active Auctions') }}
         </h2>
     </x-slot>
 
@@ -27,19 +28,19 @@
 
                             <div class="space-y-2 mb-6 pt-4 border-t border-gray-100 dark:border-zinc-800">
                                 <div class="flex justify-between text-sm">
-                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Starting Bid:</span>
+                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Starting Price:</span>
                                     <span class="font-bold text-gray-800 dark:text-zinc-200 text-sm">₹{{ number_format($auction->starting_price) }}</span>
                                 </div>
                                 <div class="flex justify-between text-sm">
-                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Current Standing:</span>
+                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Current Price:</span>
                                     <span class="font-bold text-amber-600 dark:text-[#C5A880] text-sm">₹{{ number_format($auction->current_price) }}</span>
                                 </div>
                                 <div class="flex justify-between text-sm">
-                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Bids Placed:</span>
-                                    <span class="font-bold text-gray-800 dark:text-zinc-200 text-sm">{{ $auction->bids_count }} bids</span>
+                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Bids:</span>
+                                    <span class="font-bold text-gray-800 dark:text-zinc-200 text-sm">{{ $auction->bids_count }}</span>
                                 </div>
                                 <div class="flex justify-between text-sm">
-                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Ends In:</span>
+                                    <span class="text-gray-400 dark:text-zinc-500 text-xs">Ends:</span>
                                     <span class="font-bold text-gray-800 dark:text-zinc-200 text-sm">{{ $auction->end_time->diffForHumans() }}</span>
                                 </div>
                             </div>
@@ -47,14 +48,14 @@
                             <div>
                                 <a href="{{ route('auctions.show', $auction) }}"
                                    class="w-full inline-flex justify-center items-center py-2 px-4 text-xs font-bold text-white dark:text-black bg-gray-950 dark:bg-[#C5A880] hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md transition duration-150">
-                                    View & Place Bid
+                                    View Details
                                 </a>
                             </div>
                         </div>
                     </div>
                 @empty
                     <div class="col-span-full text-center py-12 text-gray-500 dark:text-zinc-500 bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg">
-                        <p class="text-sm font-semibold">No active heritage lots at the moment.</p>
+                        <p class="text-sm font-semibold">No active auctions at the moment.</p>
                     </div>
                 @endforelse
             </div>
