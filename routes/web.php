@@ -26,6 +26,9 @@ Route::get('/auctions', [AuctionController::class, 'index'])->name('auctions.ind
 Route::middleware(['auth', 'verified'])->group(function () {
     // Standard User Dashboard
     Route::get('/dashboard', function () {
+        if (auth()->user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
         return view('dashboard');
     })->name('dashboard');
 
