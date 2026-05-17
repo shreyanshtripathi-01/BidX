@@ -102,4 +102,24 @@ class Auction extends Model
     {
         return $query->where('is_featured', true);
     }
+
+    /**
+     * Get the users who are watching this auction.
+     */
+    public function watchers()
+    {
+        return $this->belongsToMany(User::class, 'watchlists')->withTimestamps();
+    }
+
+    /**
+     * Check if a specific user is currently winning this auction (has the highest bid).
+     */
+    public function isUserWinning(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+        $highestBid = $this->bids()->orderBy('amount', 'desc')->first();
+        return $highestBid && $highestBid->user_id === $user->id;
+    }
 }

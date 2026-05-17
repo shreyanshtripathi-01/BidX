@@ -6,6 +6,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuctionController as AdminAuctionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WatchlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +44,50 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             return view('admin.dashboard', compact('stats', 'recentAuctions', 'recentBids'));
         }
-        return view('dashboard');
+        $unpaidWon = \App\Models\Auction::where('status', 'ended')
+            ->whereHas('bids', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with(['bids' => function ($q) {
+                $q->orderBy('amount', 'desc');
+            }])
+            ->get()
+            ->filter(function ($auction) {
+                $winningBid = $auction->bids->first();
+                if (!$winningBid || $winningBid->user_id !== auth()->id()) {
+                    return false;
+                }
+                return !\App\Models\Payment::where('auction_id', $auction->id)
+                    ->where('status', 'completed')
+                    ->exists();
+            });
+
+        $watchlist = auth()->user()->watchlist()->with(['bids' => function ($q) {
+            $q->orderBy('amount', 'desc');
+        }])->get();
+
+        $myListings = \App\Models\Auction::where('user_id', auth()->id())
+            ->withCount('bids')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $stats = [
+            'total_bids' => auth()->user()->bids()->count(),
+            'committed_value' => auth()->user()->bids()->sum('amount') ?? 0,
+            'won_count' => \App\Models\Auction::where('status', 'ended')
+                ->whereHas('bids', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
+                ->get()
+                ->filter(function ($auction) {
+                    $winningBid = $auction->bids()->orderBy('amount', 'desc')->first();
+                    return $winningBid && $winningBid->user_id === auth()->id();
+                })
+                ->count(),
+            'purchases_count' => auth()->user()->payments()->where('status', 'completed')->count(),
+        ];
+
+        return view('dashboard', compact('unpaidWon', 'watchlist', 'myListings', 'stats'));
     })->name('dashboard');
 
     // My auctions (created by me)
@@ -60,6 +104,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/notifications', [AuctionController::class, 'notifications'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [AuctionController::class, 'markNotificationAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [AuctionController::class, 'readAllNotifications'])->name('notifications.readAll');
+
+    // Watchlist
+    Route::post('/auctions/{auction}/watch', [WatchlistController::class, 'toggle'])->name('watchlist.toggle');
 
     // Payment (dummy)
     Route::get('/auctions/{auction}/payment', [PaymentController::class, 'show'])->name('payments.show');

@@ -86,4 +86,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+
+    /**
+     * Get the auctions that this user is watching.
+     */
+    public function watchlist()
+    {
+        return $this->belongsToMany(Auction::class, 'watchlists')->withTimestamps();
+    }
+
+    /**
+     * Check if the user is watching an auction.
+     */
+    public function isWatching(Auction $auction): bool
+    {
+        return $this->watchlist()->where('auction_id', $auction->id)->exists();
+    }
 }
