@@ -47,11 +47,7 @@
                         </x-nav-link>
                     @endauth
 
-                    @can('admin')
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Admin Panel') }}
-                        </x-nav-link>
-                    @endcan
+
                 </div>
             </div>
 
@@ -158,11 +154,7 @@
                 </x-responsive-nav-link>
             @endauth
 
-            @can('admin')
-                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Admin Panel') }}
-                </x-responsive-nav-link>
-            @endcan
+
         </div>
 
         <!-- Responsive Settings Options -->
