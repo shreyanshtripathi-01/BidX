@@ -13,29 +13,65 @@ class AuctionSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Create Mock Bidders/Sellers
+        // 1. Create 10 Mock Indian Members + Test User
         $usersData = [
             [
                 'name' => 'Rajesh Kumar',
-                'email' => 'rajesh@example.com',
+                'email' => 'rajesh@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
             [
                 'name' => 'Aisha Sharma',
-                'email' => 'aisha@example.com',
+                'email' => 'aisha@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
             [
                 'name' => 'Amit Patel',
-                'email' => 'amit@example.com',
+                'email' => 'amit@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
             [
                 'name' => 'Priya Nair',
-                'email' => 'priya@example.com',
+                'email' => 'priya@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Vikram Singh',
+                'email' => 'vikram@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Sunita Rao',
+                'email' => 'sunita@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Sanjay Mehta',
+                'email' => 'sanjay@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Pooja Joshi',
+                'email' => 'pooja@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Arjun Verma',
+                'email' => 'arjun@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Divya Reddy',
+                'email' => 'divya@gmail.com',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]
@@ -47,7 +83,7 @@ class AuctionSeeder extends Seeder
         }
 
         // Default test user
-        $testUser = User::where('email', 'test@example.com')->first();
+        $testUser = User::where('email', 'test@gmail.com')->first();
         if ($testUser) {
             $users[] = $testUser;
         }
@@ -145,7 +181,7 @@ class AuctionSeeder extends Seeder
             shuffle($potentialBidders);
 
             // Seed 2 to 4 unique bids
-            $numBids = rand(2, count($potentialBidders));
+            $numBids = rand(2, 4);
             $biddersForAuction = array_slice($potentialBidders, 0, $numBids);
 
             $bidAmount = $auction->starting_price;
@@ -180,6 +216,14 @@ class AuctionSeeder extends Seeder
                         'is_read' => false,
                     ]);
                 }
+            }
+        }
+
+        // Seed Watchlist Items for Test User
+        if ($testUser) {
+            $activeLots = Auction::where('status', 'active')->take(2)->get();
+            foreach ($activeLots as $lot) {
+                $testUser->watchlist()->syncWithoutDetaching($lot->id);
             }
         }
     }
