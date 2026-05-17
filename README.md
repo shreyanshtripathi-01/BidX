@@ -1,59 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BidX
+### Premium Heritage & Collectibles Auction Portal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+BidX is a high-fidelity online auction platform designed for the Indian collectors' market. The platform features a bespoke Obsidian & Bronze aesthetic, bringing the atmosphere of a physical, premium auction house online.
 
-## About Laravel
+From royal numismatics and royal textiles to vintage automobilia, BidX is custom-engineered to manage high-value physical asset vetting, bidding escrow, and seamless bidder coordination.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Core Pillars & Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Obsidian & Bronze Aesthetic
+* **Elite Color Palette:** Built using a bespoke obsidian-warm charcoal base (#0A0A0A / #121212) accented by elegant champagne bronze (#C5A880) styling.
+* **Flicker-Free Theme Toggling:** Fast light/dark state transitions powered by class-based local storage hooks.
+* **Typography:** System-wide Figtree sans-serif typography.
 
-## Learning Laravel
+### 2. High-Fidelity Bidding Mechanics
+* **Bespoke Bidding Calculators:** Dynamic Indian Rupee (₹) bidding logs with active integer calculations (zero floating-point anomalies).
+* **Anti-Collusion Unique Guard:** Each bidder is strictly limited to exactly one active row in the live bids ledger per lot. Outbids calculate dynamically on conflict to maintain absolute transaction transparency.
+* **Real-time outbid notifications:** Outbid logs and status updates to instantly notify users when their bids are surpassed.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Collector's 3-Phase Escrow Workflow
+* **Physical Asset Vetting:** Every item undergoes hands-on authentication by specialists before being cataloged.
+* **Transparent Bidding:** Fair-play active auctions with public bidding ledgers.
+* **White-Glove Escrow Logistics:** High-security transit and payment protection upon successful bid closure.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Technical Architecture
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* **Backend Framework:** Laravel 11 (PHP 8.2+)
+* **Frontend Compiler:** Vite + Tailwind CSS
+* **Database Layer:** Robust MySQL / SQLite schema configurations
+* **Identity Management:** Laravel Breeze (Custom Rebranded)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Running Locally
 
-## Contributing
+### 1. Set Up Environment Variables
+Configure your database inside `.env`:
+```ini
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=auction_platform
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Install Dependencies & Seed
+```bash
+composer install
+npm install
+php artisan migrate:fresh --seed
+```
 
-## Code of Conduct
+### 3. Boot Up Servers
+Open two terminal windows side-by-side:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* **Backend Process:**
+  ```bash
+  php artisan serve
+  ```
+* **Frontend Compiler:**
+  ```bash
+  npm run dev
+  ```
 
-## Security Vulnerabilities
+Access the dashboard at: http://127.0.0.1:8000
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Production & Deployment
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+BidX is built with a continuous deployment lifecycle, utilizing Railway.app connected directly to GitHub. 
+
+* **Hosting Architecture:** Containerized PHP & Node runtime via Nixpacks.
+* **Database Connection:** Multi-service orchestration linking the web frontend with a dedicated MySQL replica inside the secure VPC.
