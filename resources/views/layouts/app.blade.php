@@ -28,6 +28,14 @@
     </head>
     <body class="font-sans antialiased bg-gray-50 text-gray-900 dark:bg-[#0A0A0A] dark:text-[#E5E5E5] transition-colors duration-200">
         <div x-data="{ showLoginModal: false, showRegisterModal: false }" 
+             x-init="
+                 const urlParams = new URLSearchParams(window.location.search);
+                 if (urlParams.get('action') === 'login') {
+                     showLoginModal = true;
+                 } else if (urlParams.get('action') === 'register') {
+                     showRegisterModal = true;
+                 }
+             "
              @login-modal.window="showLoginModal = true; showRegisterModal = false" 
              @register-modal.window="showRegisterModal = true; showLoginModal = false" 
              class="min-h-screen bg-gray-50 dark:bg-[#0A0A0A]">
