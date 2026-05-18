@@ -18,5 +18,14 @@ class AdminUserSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
+        User::updateOrCreate(
+            ['email' => 'shreyansh@bidx.com'],
+            [
+                'name' => 'Shreyansh (Admin)',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }
