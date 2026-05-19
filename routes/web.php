@@ -151,18 +151,14 @@ Route::prefix('api')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Temporary database seed/reset route (uncommented for new seed)
-// Temporary database seed/reset route (uncommented for new seed)
-/*
-Route::get('/seed-database-securely', function () {
+// Temporary route to migrate database on Railway
+Route::get('/run-migrations-securely', function () {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
-            '--seed' => true,
+        \Illuminate\Support\Facades\Artisan::call('migrate', [
             '--force' => true
         ]);
-        return 'Database successfully reset and seeded with 12 Indian users, active bids, and lots!';
+        return 'Production database successfully migrated and updated!';
     } catch (\Exception $e) {
         return 'Error: ' . $e->getMessage();
     }
 });
-*/
