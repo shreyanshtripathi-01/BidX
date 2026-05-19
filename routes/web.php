@@ -145,3 +145,16 @@ Route::prefix('api')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Temporary database seed/reset route
+Route::get('/seed-database-securely', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+            '--seed' => true,
+            '--force' => true
+        ]);
+        return 'Database successfully reset and seeded with 12 Indian users, active bids, and lots!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
