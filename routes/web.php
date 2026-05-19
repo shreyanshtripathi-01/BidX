@@ -151,14 +151,13 @@ Route::prefix('api')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Temporary route to migrate database on Railway
-Route::get('/run-migrations-securely', function () {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', [
-            '--force' => true
-        ]);
-        return 'Production database successfully migrated and updated!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
+// Temporary route to get logs
+Route::get('/get-logs', function () {
+    $logFile = storage_path('logs/laravel.log');
+    if (!file_exists($logFile)) return 'No logs found.';
+    
+    // Get last 100 lines of log
+    $lines = file($logFile);
+    $lastLines = array_slice($lines, -100);
+    return response('<pre>' . implode("", $lastLines) . '</pre>');
 });
