@@ -244,5 +244,62 @@
                 </div>
             @endguest
         </div>
+
+        @auth
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check if the browser supports notifications
+                if ("Notification" in window) {
+                    // Ask for permission if not already granted or denied
+                    if (Notification.permission === "default") {
+                        Notification.requestPermission();
+                    }
+
+                    // If granted, start polling
+                    if (Notification.permission === "granted" || Notification.permission === "default") {
+                        let notifiedIds = JSON.parse(localStorage.getItem('notified_ids')) || [];
+
+                        // Function to check for new notifications
+                        const checkNotifications = async () => {
+                            try {
+                                const response = await fetch('{{ route('api.notifications.unread') }}');
+                                if (!response.ok) return;
+                                const notifications = await response.json();
+                                
+                                notifications.forEach(notif => {
+                                    if (!notifiedIds.includes(notif.id)) {
+                                        // Show browser notification
+                                        if (Notification.permission === "granted") {
+                                            const browserNotif = new Notification(notif.title, {
+                                                body: notif.message,
+                                                icon: '/favicon.ico'
+                                            });
+                                            
+                                            browserNotif.onclick = function() {
+                                                window.location.href = '{{ route('notifications.index') }}';
+                                            };
+                                        }
+                                        
+                                        // Mark as notified
+                                        notifiedIds.push(notif.id);
+                                    }
+                                });
+                                
+                                // Save back to localStorage so we don't notify again on page reload
+                                localStorage.setItem('notified_ids', JSON.stringify(notifiedIds));
+                                
+                            } catch (e) {
+                                console.error('Error fetching notifications:', e);
+                            }
+                        };
+
+                        // Check immediately and then every 15 seconds
+                        checkNotifications();
+                        setInterval(checkNotifications, 15000);
+                    }
+                }
+            });
+        </script>
+        @endauth
     </body>
 </html>

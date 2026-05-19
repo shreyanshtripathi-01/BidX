@@ -104,6 +104,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/notifications', [AuctionController::class, 'notifications'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [AuctionController::class, 'markNotificationAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [AuctionController::class, 'readAllNotifications'])->name('notifications.readAll');
+    
+    // API for browser polling
+    Route::get('/api/user/notifications/unread', function () {
+        return response()->json(auth()->user()->notifications()->where('is_read', false)->get());
+    })->name('api.notifications.unread');
 
     // Watchlist
     Route::post('/auctions/{auction}/watch', [WatchlistController::class, 'toggle'])->name('watchlist.toggle');
