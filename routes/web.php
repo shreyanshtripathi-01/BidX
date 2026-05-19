@@ -146,8 +146,7 @@ Route::prefix('api')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Temporary database seed/reset route (commented out for security after successful run)
-/*
+// Temporary database seed/reset route (uncommented for new seed)
 Route::get('/seed-database-securely', function () {
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
@@ -159,4 +158,3 @@ Route::get('/seed-database-securely', function () {
         return 'Error: ' . $e->getMessage();
     }
 });
-*/
