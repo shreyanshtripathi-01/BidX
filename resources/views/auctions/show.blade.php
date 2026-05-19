@@ -51,10 +51,10 @@
                             </h1>
                             <p class="text-sm text-gray-500 dark:text-zinc-400 mt-1">By {{ $auction->user->name }}</p>
                         </div>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                            {{ $auction->status === 'active' ? 'bg-amber-50 text-amber-700 dark:bg-[#C5A880]/10 dark:text-[#C5A880]' : 'bg-gray-50 text-gray-500' }}">
-                            {{ ucfirst($auction->status) }}
-                        </span>
+                        <div class="flex items-center space-x-2 border border-gray-150 dark:border-zinc-800 px-3 py-1.5 rounded-full">
+                            <span class="w-2 h-2 rounded-full {{ $auction->status === 'active' ? 'bg-green-500 animate-pulse' : 'bg-gray-400 dark:bg-zinc-600' }}"></span>
+                            <span class="text-xs font-semibold text-gray-700 dark:text-zinc-300">{{ $auction->status === 'active' ? 'Live Auction' : 'Auction Closed' }}</span>
+                        </div>
                     </div>
 
                     <p class="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed mb-6">{{ $auction->description }}</p>
@@ -70,7 +70,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 dark:text-zinc-500 uppercase">Total Bids</p>
-                            <p class="text-base font-extrabold text-gray-900 dark:text-zinc-200">{{ $auction->bids_count }}</p>
+                            <p class="text-base font-extrabold text-gray-900 dark:text-zinc-200">{{ $auction->bids()->count() }}</p>
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 dark:text-zinc-500 uppercase">Ends</p>

@@ -43,14 +43,14 @@
                                         <div class="text-sm text-gray-500 dark:text-zinc-400">{{ $user->email }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xxs font-bold bg-amber-50 text-amber-800 dark:bg-[#C5A880]/10 dark:text-[#C5A880]">
+                                        <div class="text-sm font-bold text-gray-900 dark:text-zinc-200">
                                             {{ $user->auctions_count }}
-                                        </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xxs font-bold bg-green-50 text-green-800 dark:bg-green-950/40 dark:text-green-400">
+                                        <div class="text-sm font-bold text-gray-900 dark:text-zinc-200">
                                             {{ $user->bids_count }}
-                                        </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 dark:text-zinc-550">
                                         {{ $user->created_at->format('M d, Y') }}

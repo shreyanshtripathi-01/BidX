@@ -87,7 +87,6 @@ class AuctionController extends Controller
         $auction->load(['bids' => function ($query) {
             $query->with('user')->latest('amount')->limit(20);
         }]);
-        $auction->loadCount('bids');
 
         return view('auctions.show', compact('auction'));
     }
