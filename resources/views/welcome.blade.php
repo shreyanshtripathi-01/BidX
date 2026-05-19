@@ -129,10 +129,7 @@
                 @forelse($featuredAuctions as $auction)
                     <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden">
                         <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="px-2.5 py-0.5 text-xxs font-bold uppercase tracking-wider bg-amber-50 text-amber-800 dark:bg-[#C5A880]/10 dark:text-[#C5A880] rounded-full">
-                                    Active Auction
-                                </span>
+                            <div class="flex justify-end items-start mb-4">
                                 <span class="text-xxs text-gray-400 dark:text-zinc-550">
                                     {{ $auction->end_time->diffForHumans() }}
                                 </span>
@@ -151,10 +148,17 @@
                                     <p class="text-xxs text-gray-400 dark:text-zinc-550 uppercase tracking-wider font-semibold">Current Bid</p>
                                     <p class="text-lg font-bold text-gray-900 dark:text-zinc-100">₹{{ number_format($auction->current_price) }}</p>
                                 </div>
-                                <a href="{{ route('auctions.show', $auction) }}" 
-                                   class="inline-flex justify-center items-center px-4 py-2 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md transition duration-150">
-                                    Place Bid
-                                </a>
+                                @auth
+                                    <a href="{{ route('auctions.show', $auction) }}" 
+                                       class="inline-flex justify-center items-center px-4 py-2 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md transition duration-150">
+                                        Place Bid
+                                    </a>
+                                @else
+                                    <button @click="showLoginModal = true" 
+                                       class="inline-flex justify-center items-center px-4 py-2 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md transition duration-150">
+                                        Log In to Bid
+                                    </button>
+                                @endauth
                             </div>
                         </div>
                     </div>
