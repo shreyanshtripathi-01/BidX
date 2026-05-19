@@ -129,9 +129,10 @@
                                     </p>
                                 </div>
                                 <div class="shrink-0 flex items-center space-x-4">
-                                    <span class="px-2 py-0.5 text-xxs font-semibold rounded-full {{ $auction->status === 'active' ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400' : 'bg-gray-50 text-gray-500 dark:bg-zinc-800/40 dark:text-zinc-450' }}">
-                                        {{ ucfirst($auction->status) }}
-                                    </span>
+                                    <div class="flex items-center space-x-1.5" title="{{ ucfirst($auction->status) }}">
+                                        <span class="w-1.5 h-1.5 rounded-full {{ $auction->status === 'active' ? 'bg-green-500' : 'bg-gray-400 dark:bg-zinc-600' }}"></span>
+                                        <span class="text-xs text-gray-500 dark:text-zinc-500">{{ $auction->status === 'active' ? 'Live' : 'Closed' }}</span>
+                                    </div>
                                     <a href="{{ route('admin.auctions.show', $auction) }}" class="text-xs font-semibold text-amber-600 dark:text-[#C5A880] hover:underline">Manage</a>
                                 </div>
                             </div>

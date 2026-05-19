@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'active_auctions' => Auction::where('status', 'active')->count(),
             'ended_auctions' => Auction::where('status', 'ended')->count(),
             'total_bids' => Bid::count(),
-            'total_revenue' => Payment::where('status', 'completed')->sum('amount'),
+            'total_revenue' => Auction::where('status', 'ended')->sum('current_price'),
         ];
 
         $recentAuctions = Auction::latest()->withCount('bids')->take(5)->get();

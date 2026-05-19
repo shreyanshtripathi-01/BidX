@@ -56,9 +56,9 @@
                             </span>
                         </div>
                         <div class="py-4 flex justify-between items-center">
-                            <span class="text-sm text-gray-600 dark:text-zinc-400">Dummy Net Revenue</span>
+                            <span class="text-sm text-gray-600 dark:text-zinc-400">Total Traded Volume</span>
                             <span class="text-sm font-extrabold text-gray-900 dark:text-zinc-100">
-                                ₹{{ number_format(\App\Models\Payment::where('status', 'completed')->sum('amount')) }}
+                                ₹{{ number_format(\App\Models\Auction::where('status', 'ended')->sum('current_price')) }}
                             </span>
                         </div>
                     </div>

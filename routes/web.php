@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'total_users' => \App\Models\User::count(),
                 'active_auctions' => \App\Models\Auction::where('status', 'active')->count(),
                 'ended_auctions' => \App\Models\Auction::where('status', 'ended')->count(),
-                'total_revenue' => \App\Models\Payment::where('status', 'completed')->sum('amount'),
+                'total_revenue' => \App\Models\Auction::where('status', 'ended')->sum('current_price'),
                 'total_bids' => \App\Models\Bid::count(),
                 'avg_bid' => \App\Models\Bid::avg('amount') ?? 0,
                 'active_bidders' => \App\Models\Bid::distinct('user_id')->count('user_id'),
