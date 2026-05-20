@@ -13,12 +13,8 @@ use Illuminate\Http\RedirectResponse;
 
 class AuctionController extends Controller
 {
-    /**
-     * Display a listing of active auctions.
-     */
     public function index(): View
     {
-        // Get active auctions with their highest bid
         $auctions = Auction::active()
             ->withCount('bids')
             ->with('highestBid')
@@ -28,9 +24,6 @@ class AuctionController extends Controller
         return view('auctions.index', compact('auctions'));
     }
 
-    /**
-     * Show the form for creating a new auction.
-     */
     public function create(): View|RedirectResponse
     {
         if (!Auth::user()->isAdmin()) {
@@ -39,9 +32,6 @@ class AuctionController extends Controller
         return view('auctions.create');
     }
 
-    /**
-     * Store a newly created auction in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
         if (!Auth::user()->isAdmin()) {
@@ -53,7 +43,7 @@ class AuctionController extends Controller
             'starting_price' => 'required|numeric|min:0.01',
             'start_time' => 'required|date|after:now',
             'end_time' => 'required|date|after:start_time',
-            'image' => 'nullable|image|max:2048', // max 2MB
+            'image' => 'nullable|image|max:2048',
         ]);
 
         $auction = new Auction();
@@ -66,7 +56,6 @@ class AuctionController extends Controller
         $auction->end_time = $validated['end_time'];
         $auction->status = 'active';
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('auction-images', 'public');
             $auction->image = $path;
@@ -78,12 +67,8 @@ class AuctionController extends Controller
             ->with('success', 'Auction created successfully!');
     }
 
-    /**
-     * Display the specified auction.
-     */
     public function show(Auction $auction): View
     {
-        // Load bids with user info, latest first
         $auction->load(['bids' => function ($query) {
             $query->with('user')->latest('amount')->limit(20);
         }]);
@@ -91,9 +76,6 @@ class AuctionController extends Controller
         return view('auctions.show', compact('auction'));
     }
 
-    /**
-     * Show auctions created by the current user.
-     */
     public function myAuctions(): View|RedirectResponse
     {
         if (!Auth::user()->isAdmin()) {
@@ -108,9 +90,6 @@ class AuctionController extends Controller
         return view('auctions.my', compact('auctions'));
     }
 
-    /**
-     * Show the user's notifications.
-     */
     public function notifications(): View
     {
         $notifications = Auth::user()->notifications()
@@ -120,12 +99,8 @@ class AuctionController extends Controller
         return view('notifications.index', compact('notifications'));
     }
 
-    /**
-     * Mark a notification as read.
-     */
     public function markNotificationAsRead(Notification $notification): RedirectResponse
     {
-        // Ensure user owns this notification
         if ($notification->user_id !== Auth::id()) {
             abort(403);
         }
@@ -136,9 +111,6 @@ class AuctionController extends Controller
             ->with('success', 'Notification marked as read.');
     }
 
-    /**
-     * Mark all notifications as read.
-     */
     public function readAllNotifications(): RedirectResponse
     {
         Auth::user()->notifications()->update(['is_read' => true]);
@@ -147,9 +119,6 @@ class AuctionController extends Controller
             ->with('success', 'All notifications marked as read.');
     }
 
-    /**
-     * API: Get all active auctions.
-     */
     public function apiIndex()
     {
         $auctions = Auction::active()
@@ -160,9 +129,6 @@ class AuctionController extends Controller
         return response()->json($auctions);
     }
 
-    /**
-     * API: Get a single auction with bids.
-     */
     public function apiShow(Auction $auction)
     {
         $auction->load(['bids' => function ($query) {

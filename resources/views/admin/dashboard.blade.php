@@ -11,11 +11,11 @@
     </x-slot>
 
     <div class="space-y-8 pt-2">
-        <!-- Metric Cards Layout: 8 Cards in a 4+4 Grid (4 on Row 1, 4 on Row 2) -->
+        
         <div class="space-y-6">
-            <!-- Row 1: Core Platform Growth -->
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Registered Accounts -->
+                
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Registered Accounts</p>
                     <div class="flex items-baseline mt-2">
@@ -26,7 +26,6 @@
                     </div>
                 </div>
 
-                <!-- Live Lots -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Live Lots</p>
                     <div class="flex items-baseline mt-2">
@@ -37,7 +36,6 @@
                     </div>
                 </div>
 
-                <!-- Settled Lots -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Settled Lots</p>
                     <div class="flex items-baseline mt-2">
@@ -48,7 +46,6 @@
                     </div>
                 </div>
 
-                <!-- Gross Revenue -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Gross Revenue</p>
                     <div class="flex items-baseline mt-2">
@@ -60,9 +57,8 @@
                 </div>
             </div>
 
-            <!-- Row 2: Bidding & Inventory Analytics -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Bids Placed -->
+                
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Bids Placed</p>
                     <div class="flex items-baseline mt-2">
@@ -73,7 +69,6 @@
                     </div>
                 </div>
 
-                <!-- Average Bid -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Average Bid</p>
                     <div class="flex items-baseline mt-2">
@@ -84,7 +79,6 @@
                     </div>
                 </div>
 
-                <!-- Active Bidders -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Active Bidders</p>
                     <div class="flex items-baseline mt-2">
@@ -95,7 +89,6 @@
                     </div>
                 </div>
 
-                <!-- Active Inventory -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                     <p class="text-xs font-bold text-gray-400 dark:text-zinc-550 uppercase tracking-wider">Active Inventory</p>
                     <div class="flex items-baseline mt-2">
@@ -108,13 +101,10 @@
             </div>
         </div>
 
-        <!-- Content Grid split side-by-side like the member view -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Left/Center Content: Listings & Bid Feeds (Col Span 2) -->
+
             <div class="lg:col-span-2 space-y-8">
-                
-                <!-- Recent Listings -->
+
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
                         <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Recent Listings</h3>
@@ -144,7 +134,6 @@
                     </div>
                 </div>
 
-                <!-- Real-time Bids -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
                         <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Real-time Bids</h3>
@@ -172,15 +161,13 @@
 
             </div>
 
-            <!-- Right Sidebar Column (Premium Quick Actions Center) -->
             <div class="space-y-8">
-                
-                <!-- Beautiful, Clean Quick Actions (Borders, Chevrons, NO left SVG icons!) -->
+
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg p-6 shadow-sm space-y-4">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-zinc-500">Quick Actions</h3>
                     
                     <div class="space-y-3">
-                        <!-- Action 1 -->
+                        
                         <a href="{{ route('admin.auctions.create') }}" 
                            class="w-full flex items-center justify-between p-3.5 rounded-lg border border-gray-150 dark:border-zinc-900 hover:border-gray-250 dark:hover:border-zinc-850 hover:bg-gray-50/50 dark:hover:bg-zinc-900/30 transition duration-150 group">
                             <span class="text-xs font-bold text-gray-900 dark:text-zinc-200">Create New Lot</span>
@@ -189,7 +176,6 @@
                             </svg>
                         </a>
 
-                        <!-- Action 2 -->
                         <a href="{{ route('admin.users') }}" 
                            class="w-full flex items-center justify-between p-3.5 rounded-lg border border-gray-150 dark:border-zinc-900 hover:border-gray-250 dark:hover:border-zinc-850 hover:bg-gray-50/50 dark:hover:bg-zinc-900/30 transition duration-150 group">
                             <span class="text-xs font-bold text-gray-900 dark:text-zinc-200">Manage Users</span>
@@ -198,7 +184,6 @@
                             </svg>
                         </a>
 
-                        <!-- Action 3 -->
                         <a href="{{ route('admin.reports') }}" 
                            class="w-full flex items-center justify-between p-3.5 rounded-lg border border-gray-150 dark:border-zinc-900 hover:border-gray-250 dark:hover:border-zinc-850 hover:bg-gray-50/50 dark:hover:bg-zinc-900/30 transition duration-150 group">
                             <span class="text-xs font-bold text-gray-900 dark:text-zinc-200">View Platform Reports</span>

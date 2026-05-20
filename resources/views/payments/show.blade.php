@@ -40,7 +40,6 @@
                 <form method="POST" action="{{ route('payments.store', $auction) }}">
                     @csrf
 
-                    <!-- Dummy Payment Info -->
                     <div class="mb-4 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm text-yellow-800">
                         <strong>Note:</strong> This is a demo payment. No actual payment will be processed.
                     </div>

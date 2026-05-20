@@ -1,6 +1,6 @@
 <x-app-layout>
 <div class="relative">
-    <!-- Simple spacious hero -->
+    
     <div class="py-24 bg-white dark:bg-[#0A0A0A] border-b border-gray-150 dark:border-zinc-900">
         <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-zinc-100 tracking-tight leading-tight mb-6">
@@ -29,7 +29,6 @@
         </div>
     </div>
 
-    <!-- Overview / About the platform -->
     <div id="about-platform" class="py-20 bg-gray-50/50 dark:bg-[#0C0C0C] border-b border-gray-150 dark:border-zinc-900">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -65,7 +64,6 @@
         </div>
     </div>
 
-    <!-- The 3-Step Flow -->
     <div class="py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-150 dark:border-zinc-900">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-xl mx-auto mb-16">
@@ -78,7 +76,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
+                
                 <div class="bg-gray-50 dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-8 rounded-lg">
                     <p class="text-xs font-bold text-[#C5A880] tracking-wider uppercase mb-3">Step 1</p>
                     <h3 class="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-3">Item Listings</h3>
@@ -87,7 +85,6 @@
                     </p>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="bg-gray-50 dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-8 rounded-lg">
                     <p class="text-xs font-bold text-[#C5A880] tracking-wider uppercase mb-3">Step 2</p>
                     <h3 class="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-3">Real-Time Bidding</h3>
@@ -96,7 +93,6 @@
                     </p>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="bg-gray-50 dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-8 rounded-lg">
                     <p class="text-xs font-bold text-[#C5A880] tracking-wider uppercase mb-3">Step 3</p>
                     <h3 class="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-3">Win and Receive</h3>
@@ -108,7 +104,6 @@
         </div>
     </div>
 
-    <!-- Active Auctions Catalog -->
     <div id="catalog-glimpse" class="py-20 bg-gray-50/50 dark:bg-[#0C0C0C]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
@@ -172,7 +167,6 @@
         </div>
     </div>
 
-    <!-- Simple, human footer -->
     <footer class="py-12 bg-white dark:bg-[#121212] border-t border-gray-150 dark:border-zinc-900 mt-20 text-center">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-4">
             <div class="flex justify-center items-center gap-2">

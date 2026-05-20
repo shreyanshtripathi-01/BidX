@@ -8,7 +8,6 @@
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            <!-- Actions Header -->
             <div class="flex justify-between items-center">
                 <div>
                     <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Registered Users</h3>
@@ -20,7 +19,6 @@
                 </a>
             </div>
 
-            <!-- Table Card -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-150 dark:divide-zinc-900">

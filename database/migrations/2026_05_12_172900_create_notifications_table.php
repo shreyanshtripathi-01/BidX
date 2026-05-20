@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('type'); // 'outbid', 'won', 'auction_ending'
+            $table->string('type');
             $table->string('title');
             $table->text('message');
             $table->foreignId('auction_id')->nullable()->constrained()->onDelete('cascade');

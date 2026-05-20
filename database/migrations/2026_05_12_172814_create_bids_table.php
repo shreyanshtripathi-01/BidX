@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->index('auction_id');
             $table->index('user_id');
-            // One bid per user per auction
             $table->unique(['auction_id', 'user_id']);
         });
     }

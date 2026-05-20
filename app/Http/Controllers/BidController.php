@@ -15,12 +15,8 @@ use Illuminate\Support\Facades\Mail;
 
 class BidController extends Controller
 {
-    /**
-     * Place a bid on an auction.
-     */
     public function store(Request $request, Auction $auction): RedirectResponse
     {
-        // Validate the auction is active
         if ($auction->status !== 'active' || $auction->end_time <= now()) {
             return redirect()->back()->with('error', 'This auction is no longer active.');
         }
@@ -29,34 +25,28 @@ class BidController extends Controller
             'amount' => 'required|numeric|min:0.01',
         ]);
 
-        // Get current highest bid
         $highestBid = $auction->bids()->orderBy('amount', 'desc')->first();
         $highestAmount = $highestBid ? $highestBid->amount : $auction->starting_price;
 
-        // Check bid is higher than current highest
         if ($validated['amount'] <= $highestAmount) {
             return redirect()->back()->with('error', 'Your bid must be higher than the current highest bid of $' . number_format($highestAmount, 2));
         }
 
-        // Users cannot bid on their own auctions
         if ($auction->user_id === Auth::id()) {
             return redirect()->back()->with('error', 'You cannot bid on your own auction.');
         }
 
-        // Create the bid
         $bid = new Bid();
         $bid->auction_id = $auction->id;
         $bid->user_id = Auth::id();
         $bid->amount = $validated['amount'];
         $bid->save();
 
-        // Update auction current price
         $auction->current_price = $validated['amount'];
         $auction->save();
 
-        // Notify the previous highest bidder that they've been outbid
+        // Notify previous highest bidder they've been outbid
         if ($highestBid && $highestBid->user_id !== Auth::id()) {
-            // In-app notification
             Notification::create([
                 'user_id' => $highestBid->user_id,
                 'type' => 'outbid',
@@ -66,11 +56,9 @@ class BidController extends Controller
                 'is_read' => false,
             ]);
 
-            // Email notification
             try {
                 Mail::to($highestBid->user->email)->send(new BidOutbid($auction, Auth::user()->name));
             } catch (\Exception $e) {
-                // Log error but don't fail the bid
                 \Log::error('Failed to send outbid email: ' . $e->getMessage());
             }
         }
@@ -79,9 +67,6 @@ class BidController extends Controller
             ->with('success', 'Bid placed successfully!');
     }
 
-    /**
-     * Show bids for an auction.
-     */
     public function index(Auction $auction)
     {
         $bids = $auction->bids()->with('user')->latest('amount')->paginate(20);
@@ -89,13 +74,9 @@ class BidController extends Controller
         return view('bids.index', compact('auction', 'bids'));
     }
 
-    /**
-     * API: Place a bid via AJAX.
-     */
     public function apiStore(Request $request, Auction $auction): JsonResponse
     {
         try {
-            // Validate the auction is active
             if ($auction->status !== 'active' || $auction->end_time <= now()) {
                 return response()->json([
                     'success' => false,
@@ -107,11 +88,9 @@ class BidController extends Controller
                 'amount' => 'required|numeric|min:0.01',
             ]);
 
-            // Get current highest bid
             $highestBid = $auction->bids()->orderBy('amount', 'desc')->first();
             $highestAmount = $highestBid ? $highestBid->amount : $auction->starting_price;
 
-            // Check bid is higher than current highest
             if ($validated['amount'] <= $highestAmount) {
                 return response()->json([
                     'success' => false,
@@ -119,7 +98,6 @@ class BidController extends Controller
                 ], 422);
             }
 
-            // Users cannot bid on their own auctions
             if ($auction->user_id === Auth::id()) {
                 return response()->json([
                     'success' => false,
@@ -127,18 +105,15 @@ class BidController extends Controller
                 ], 422);
             }
 
-            // Create the bid
             $bid = new Bid();
             $bid->auction_id = $auction->id;
             $bid->user_id = Auth::id();
             $bid->amount = $validated['amount'];
             $bid->save();
 
-            // Update auction current price
             $auction->current_price = $validated['amount'];
             $auction->save();
 
-            // Notify the previous highest bidder (non-critical, don't let it break bidding)
             if ($highestBid && $highestBid->user_id !== Auth::id()) {
                 try {
                     Notification::create([

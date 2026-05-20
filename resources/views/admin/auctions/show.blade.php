@@ -8,7 +8,6 @@
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
         <div class="max-w-4xl mx-auto space-y-6">
 
-            <!-- Back navigation header -->
             <div class="flex items-center space-x-4">
                 <a href="{{ route('admin.auctions.index') }}" class="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,7 +20,6 @@
                 </div>
             </div>
 
-            <!-- Detail Card -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm p-8 space-y-6">
                 <div class="flex justify-between items-start">
                     <div>
@@ -36,7 +34,6 @@
 
                 <p class="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed">{{ $auction->description }}</p>
 
-                <!-- Stats Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-gray-50 dark:bg-zinc-900/30 rounded-lg border border-gray-100 dark:border-zinc-900/50">
                     <div>
                         <p class="text-xxs text-gray-400 dark:text-zinc-500 uppercase tracking-wider font-bold">Seller</p>
@@ -63,7 +60,6 @@
                 @endif
             </div>
 
-            <!-- Bid History Card -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm p-6">
                 <h3 class="text-sm font-bold text-gray-900 dark:text-zinc-100 mb-4">Complete Bid Placements</h3>
                 @if($auction->bids->isNotEmpty())
@@ -83,7 +79,6 @@
                 @endif
             </div>
 
-            <!-- Winner Card -->
             @if($auction->status === 'ended')
                 @php
                     $winner = $auction->bids()->orderBy('amount', 'desc')->first();

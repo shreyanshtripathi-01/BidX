@@ -8,7 +8,6 @@
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
         <div class="max-w-2xl mx-auto space-y-6">
 
-            <!-- Back navigation header -->
             <div class="flex items-center space-x-4">
                 <a href="{{ route('admin.auctions.index') }}" class="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,7 +20,6 @@
                 </div>
             </div>
 
-            <!-- Form Card -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                 <div class="p-8">
                     <form method="POST" action="{{ route('admin.auctions.update', $auction) }}" enctype="multipart/form-data" class="space-y-6">
@@ -29,14 +27,12 @@
                         @method('PUT')
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Title -->
                             <div>
                                 <x-input-label for="title" :value="__('Lot Title')" />
                                 <x-text-input id="title" class="mt-1 block w-full" type="text" name="title" :value="old('title', $auction->title)" required autofocus />
                                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div>
 
-                            <!-- Starting Price -->
                             <div>
                                 <x-input-label for="starting_price" :value="__('Starting Price (₹)')" />
                                 <x-text-input id="starting_price" class="mt-1 block w-full" type="number" name="starting_price" :value="old('starting_price', $auction->starting_price)" step="0.01" min="0.01" required />
@@ -44,7 +40,6 @@
                             </div>
                         </div>
 
-                        <!-- Description -->
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
                             <textarea id="description" name="description" rows="5"
@@ -54,14 +49,12 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Start Time -->
                             <div>
                                 <x-input-label for="start_time" :value="__('Start Time')" />
                                 <x-text-input id="start_time" class="mt-1 block w-full" type="datetime-local" name="start_time" :value="old('start_time', $auction->start_time->format('Y-m-d\TH:i'))" required />
                                 <x-input-error :messages="$errors->get('start_time')" class="mt-2" />
                             </div>
 
-                            <!-- End Time -->
                             <div>
                                 <x-input-label for="end_time" :value="__('End Time')" />
                                 <x-text-input id="end_time" class="mt-1 block w-full" type="datetime-local" name="end_time" :value="old('end_time', $auction->end_time->format('Y-m-d\TH:i'))" required />
@@ -70,7 +63,6 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Status -->
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
@@ -82,7 +74,6 @@
                                 <x-input-error :messages="$errors->get('status')" class="mt-2" />
                             </div>
 
-                            <!-- Image -->
                             <div>
                                 <x-input-label for="image" :value="__('Lot Display Image')" />
                                 <input type="file" id="image" name="image" accept="image/*"
@@ -94,7 +85,6 @@
                             </div>
                         </div>
 
-                        <!-- Featured Checkbox -->
                         <div class="flex items-center">
                             <input type="checkbox" id="is_featured" name="is_featured" value="1"
                                    {{ $auction->is_featured ? 'checked' : '' }}
@@ -104,7 +94,6 @@
                             </label>
                         </div>
 
-                        <!-- Buttons -->
                         <div class="pt-6 border-t border-gray-100 dark:border-zinc-900 flex items-center justify-end space-x-3">
                             <a href="{{ route('admin.auctions.index') }}" 
                                class="px-4 py-2 border border-gray-250 dark:border-zinc-800 text-gray-700 dark:text-zinc-300 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-zinc-900 rounded-md text-xs font-bold transition duration-150">

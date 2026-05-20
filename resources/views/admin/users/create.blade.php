@@ -8,7 +8,6 @@
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
         <div class="max-w-2xl mx-auto space-y-6">
 
-            <!-- Back navigation header -->
             <div class="flex items-center space-x-4">
                 <a href="{{ route('admin.users') }}" class="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,41 +20,35 @@
                 </div>
             </div>
 
-            <!-- Form Card -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                 <div class="p-8">
                     <form method="POST" action="{{ route('admin.users.store') }}" class="space-y-6">
                         @csrf
 
-                        <!-- Name -->
                         <div>
                             <x-input-label for="name" :value="__('Full Name')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name')" required autofocus autocomplete="name" />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
-                        <!-- Email Address -->
                         <div>
                             <x-input-label for="email" :value="__('Email Address')" />
                             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email')" required autocomplete="username" />
                             <x-input-error class="mt-2" :messages="$errors->get('email')" />
                         </div>
 
-                        <!-- Password -->
                         <div>
                             <x-input-label for="password" :value="__('Password')" />
                             <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
                             <x-input-error class="mt-2" :messages="$errors->get('password')" />
                         </div>
 
-                        <!-- Confirm Password -->
                         <div>
                             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
                             <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
                             <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
                         </div>
 
-                        <!-- Buttons -->
                         <div class="pt-6 border-t border-gray-100 dark:border-zinc-900 flex items-center justify-end space-x-3">
                             <a href="{{ route('admin.users') }}" 
                                class="px-4 py-2 border border-gray-250 dark:border-zinc-800 text-gray-700 dark:text-zinc-300 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-zinc-900 rounded-md text-xs font-bold transition duration-150">

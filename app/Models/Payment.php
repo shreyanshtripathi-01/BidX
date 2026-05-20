@@ -10,9 +10,6 @@ class Payment extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'user_id',
         'auction_id',
@@ -21,24 +18,15 @@ class Payment extends Model
         'transaction_id',
     ];
 
-    /**
-     * The attributes that should be cast.
-     */
     protected $casts = [
         'amount' => 'decimal:2',
     ];
 
-    /**
-     * Get the user who made this payment.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the auction related to this payment.
-     */
     public function auction(): BelongsTo
     {
         return $this->belongsTo(Auction::class);

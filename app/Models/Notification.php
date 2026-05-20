@@ -10,9 +10,6 @@ class Notification extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'user_id',
         'type',
@@ -22,24 +19,15 @@ class Notification extends Model
         'is_read',
     ];
 
-    /**
-     * The attributes that should be cast.
-     */
     protected $casts = [
         'is_read' => 'boolean',
     ];
 
-    /**
-     * Get the user that owns this notification.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the auction related to this notification.
-     */
     public function auction(): BelongsTo
     {
         return $this->belongsTo(Auction::class);

@@ -12,14 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
-
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    /**
-     * Show the admin dashboard.
-     */
     public function index(): View
     {
         $stats = [
@@ -37,9 +33,6 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('stats', 'recentAuctions', 'recentBids'));
     }
 
-    /**
-     * Show list of all users.
-     */
     public function users(): View
     {
         $users = User::withCount('auctions', 'bids')
@@ -49,17 +42,11 @@ class DashboardController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    /**
-     * Show form to create a new user.
-     */
     public function createUser(): View
     {
         return view('admin.users.create');
     }
 
-    /**
-     * Store a newly created user in storage.
-     */
     public function storeUser(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -72,16 +59,13 @@ class DashboardController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'email_verified_at' => now(), // Auto-verify seeded/created users for convenience
+            'email_verified_at' => now(),
         ]);
 
         return redirect()->route('admin.users')
             ->with('success', 'User created successfully!');
     }
 
-    /**
-     * Show reports page.
-     */
     public function reports(): View
     {
         $topAuctions = Auction::withCount('bids')

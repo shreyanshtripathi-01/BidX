@@ -1,11 +1,9 @@
 <?php
 
-// Prevent Nixpacks build-time configuration cache poisoning by deleting the cache file programmatically on boot.
 if (file_exists(__DIR__.'/cache/config.php')) {
     @unlink(__DIR__.'/cache/config.php');
 }
 
-// Dynamically align Railway MySQL environment variables with Laravel expectations.
 $mappings = [
     'DB_HOST' => ['MYSQLHOST', 'MYSQL_HOST'],
     'DB_PORT' => ['MYSQLPORT', 'MYSQL_PORT'],
@@ -45,5 +43,4 @@ return Application::configure(basePath: dirname(__DIR__))
          ]);
      })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
     })->create();

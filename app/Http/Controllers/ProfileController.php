@@ -12,9 +12,6 @@ use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
-    /**
-     * Show the user's profile.
-     */
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -22,9 +19,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile.
-     */
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -43,9 +37,6 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validate([

@@ -8,14 +8,13 @@
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            <!-- Title Header -->
             <div>
                 <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Platform Performance Reports</h3>
                 <p class="text-xs text-gray-400 dark:text-zinc-550 mt-1">High-level statistics, engagement, and top performing active lots.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Top Auctions List -->
+                
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm p-6">
                     <h3 class="text-sm font-bold text-gray-900 dark:text-zinc-100 mb-4">Most Popular Lots by Bid Volume</h3>
                     <div class="space-y-3">
@@ -33,7 +32,6 @@
                     </div>
                 </div>
 
-                <!-- Static Platform Metrics -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm p-6">
                     <h3 class="text-sm font-bold text-gray-900 dark:text-zinc-100 mb-4">Platform Overview Summary</h3>
                     <div class="divide-y divide-gray-150 dark:divide-zinc-900">

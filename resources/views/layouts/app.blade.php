@@ -7,17 +7,13 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- Theme Initialization script to avoid visual shifts -->
         <script>
             if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
@@ -42,7 +38,6 @@
             
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-[#121212] border-b border-gray-150 dark:border-zinc-900">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -51,7 +46,6 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-md border border-green-200 bg-green-50 text-sm font-semibold text-green-850 dark:bg-green-950/20 dark:border-green-900/50 dark:text-green-400">
@@ -69,7 +63,7 @@
             </main>
 
             @guest
-                <!-- Beautiful, blurred-background Login Modal -->
+                
                 <div x-show="showLoginModal" 
                      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
                      x-transition:enter="ease-out duration-300"
@@ -79,11 +73,9 @@
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      style="display: none;">
-                    
-                    <!-- Blurred backdrop -->
+
                     <div class="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity" @click="showLoginModal = false"></div>
 
-                    <!-- Modal content card -->
                     <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10 transform transition-all"
                          x-transition:enter="ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
@@ -91,13 +83,11 @@
                          x-transition:leave="ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95">
-                        
-                        <!-- Close button -->
+
                         <button @click="showLoginModal = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-650 dark:hover:text-zinc-300 text-2xl leading-none">
                             &times;
                         </button>
 
-                        <!-- Logo & Title -->
                         <div class="text-center mb-6">
                             <div class="inline-block mb-4">
                                 <x-application-logo class="w-24 h-auto text-gray-900 dark:text-zinc-150" />
@@ -110,17 +100,14 @@
                             </p>
                         </div>
 
-                        <!-- Login Form inside Modal -->
                         <form method="POST" action="{{ route('login') }}" class="space-y-4">
                             @csrf
 
-                            <!-- Email Address -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_email" :value="__('Email')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_email" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                             </div>
 
-                            <!-- Password -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_password" :value="__('Password')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_password" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
@@ -129,7 +116,6 @@
                                                 required autocomplete="current-password" />
                             </div>
 
-                            <!-- Remember Me -->
                             <div class="flex items-center justify-between pt-1">
                                 <label for="modal_remember_me" class="inline-flex items-center">
                                     <input id="modal_remember_me" type="checkbox" class="rounded border-gray-300 text-amber-600 shadow-sm focus:ring-amber-500" name="remember">
@@ -137,7 +123,6 @@
                                 </label>
                             </div>
 
-                            <!-- Submit Button -->
                             <div class="pt-2">
                                 <button type="submit" class="w-full inline-flex justify-center items-center py-2.5 px-4 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md shadow-sm transition duration-150">
                                     {{ __('Log In') }}
@@ -153,7 +138,6 @@
                     </div>
                 </div>
 
-                <!-- Beautiful, blurred-background Register Modal -->
                 <div x-show="showRegisterModal" 
                      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
                      x-transition:enter="ease-out duration-300"
@@ -163,11 +147,9 @@
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      style="display: none;">
-                    
-                    <!-- Blurred backdrop -->
+
                     <div class="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity" @click="showRegisterModal = false"></div>
 
-                    <!-- Modal content card -->
                     <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10 transform transition-all"
                          x-transition:enter="ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
@@ -175,13 +157,11 @@
                          x-transition:leave="ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95">
-                        
-                        <!-- Close button -->
+
                         <button @click="showRegisterModal = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-650 dark:hover:text-zinc-300 text-2xl leading-none">
                             &times;
                         </button>
 
-                        <!-- Logo & Title -->
                         <div class="text-center mb-6">
                             <div class="inline-block mb-4">
                                 <x-application-logo class="w-24 h-auto text-gray-900 dark:text-zinc-150" />
@@ -194,23 +174,19 @@
                             </p>
                         </div>
 
-                        <!-- Register Form inside Modal -->
                         <form method="POST" action="{{ route('register') }}" class="space-y-4">
                             @csrf
 
-                            <!-- Name -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_name" :value="__('Name')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_name" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                             </div>
 
-                            <!-- Email Address -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_reg_email" :value="__('Email')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_reg_email" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm" type="email" name="email" :value="old('email')" required autocomplete="username" />
                             </div>
 
-                            <!-- Password -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_reg_password" :value="__('Password')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_reg_password" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
@@ -219,7 +195,6 @@
                                                 required autocomplete="new-password" />
                             </div>
 
-                            <!-- Confirm Password -->
                             <div class="space-y-1">
                                 <x-input-label for="modal_password_confirmation" :value="__('Confirm Password')" class="text-xs font-semibold text-gray-600 dark:text-zinc-400" />
                                 <x-text-input id="modal_password_confirmation" class="block w-full px-4 py-2 border border-gray-300 dark:border-zinc-800 bg-white dark:bg-[#0A0A0A] text-gray-900 dark:text-[#E5E5E5] rounded-md focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
@@ -227,7 +202,6 @@
                                                 name="password_confirmation" required autocomplete="new-password" />
                             </div>
 
-                            <!-- Submit Button -->
                             <div class="pt-2">
                                 <button type="submit" class="w-full inline-flex justify-center items-center py-2.5 px-4 text-xs font-bold text-white bg-gray-900 dark:bg-[#C5A880] dark:text-black hover:bg-gray-800 dark:hover:bg-[#B3966E] rounded-md shadow-sm transition duration-150">
                                     {{ __('Register') }}
@@ -248,18 +222,16 @@
         @auth
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Check if the browser supports notifications
+                
                 if ("Notification" in window) {
-                    // Ask for permission if not already granted or denied
+                    
                     if (Notification.permission === "default") {
                         Notification.requestPermission();
                     }
 
-                    // If granted, start polling
                     if (Notification.permission === "granted" || Notification.permission === "default") {
                         let notifiedIds = JSON.parse(localStorage.getItem('notified_ids')) || [];
 
-                        // Function to check for new notifications
                         const checkNotifications = async () => {
                             try {
                                 const response = await fetch('{{ route('api.notifications.unread') }}');
@@ -268,7 +240,7 @@
                                 
                                 notifications.forEach(notif => {
                                     if (!notifiedIds.includes(notif.id)) {
-                                        // Show browser notification
+                                        
                                         if (Notification.permission === "granted") {
                                             const browserNotif = new Notification(notif.title, {
                                                 body: notif.message,
@@ -279,13 +251,11 @@
                                                 window.location.href = '{{ route('notifications.index') }}';
                                             };
                                         }
-                                        
-                                        // Mark as notified
+
                                         notifiedIds.push(notif.id);
                                     }
                                 });
-                                
-                                // Save back to localStorage so we don't notify again on page reload
+
                                 localStorage.setItem('notified_ids', JSON.stringify(notifiedIds));
                                 
                             } catch (e) {
@@ -293,7 +263,6 @@
                             }
                         };
 
-                        // Check immediately and then every 15 seconds
                         checkNotifications();
                         setInterval(checkNotifications, 15000);
                     }

@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Mail;
 
 class AuctionController extends Controller
 {
-    /**
-     * Display a listing of all auctions.
-     */
     public function index(): View
     {
         $auctions = Auction::withCount('bids')
@@ -29,17 +26,11 @@ class AuctionController extends Controller
         return view('admin.auctions.index', compact('auctions'));
     }
 
-    /**
-     * Show the form for creating a new auction.
-     */
     public function create(): View
     {
         return view('admin.auctions.create');
     }
 
-    /**
-     * Store a newly created auction in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -69,9 +60,6 @@ class AuctionController extends Controller
             ->with('success', 'Auction created successfully!');
     }
 
-    /**
-     * Display the specified auction.
-     */
     public function show(Auction $auction): View
     {
         $auction->load(['bids' => function ($query) {
@@ -81,17 +69,11 @@ class AuctionController extends Controller
         return view('admin.auctions.show', compact('auction'));
     }
 
-    /**
-     * Show the form for editing the specified auction.
-     */
     public function edit(Auction $auction): View
     {
         return view('admin.auctions.edit', compact('auction'));
     }
 
-    /**
-     * Update the specified auction in storage.
-     */
     public function update(Request $request, Auction $auction): RedirectResponse
     {
         $validated = $request->validate([
@@ -118,9 +100,6 @@ class AuctionController extends Controller
             ->with('success', 'Auction updated successfully!');
     }
 
-    /**
-     * Remove the specified auction from storage.
-     */
     public function destroy(Auction $auction): RedirectResponse
     {
         $auction->delete();
@@ -129,18 +108,13 @@ class AuctionController extends Controller
             ->with('success', 'Auction deleted successfully!');
     }
 
-    /**
-     * End an auction early and notify the winner.
-     */
     public function endAuction(Auction $auction): RedirectResponse
     {
         $auction->update(['status' => 'ended']);
 
-        // Find the winner (highest bidder)
         $winner = $auction->bids()->orderBy('amount', 'desc')->first();
 
         if ($winner) {
-            // Send in-app notification
             Notification::create([
                 'user_id' => $winner->user_id,
                 'type' => 'won',
@@ -150,7 +124,6 @@ class AuctionController extends Controller
                 'is_read' => false,
             ]);
 
-            // Send email notification
             try {
                 Mail::to($winner->user->email)->send(new AuctionWon($auction));
             } catch (\Exception $e) {

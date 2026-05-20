@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class WatchlistController extends Controller
 {
-    /**
-     * Toggle watch status for an auction.
-     */
     public function toggle(Auction $auction): RedirectResponse
     {
         $user = Auth::user();

@@ -10,7 +10,6 @@
             <form method="POST" action="{{ route('auctions.store') }}" enctype="multipart/form-data" class="bg-white shadow rounded-lg p-6">
                 @csrf
 
-                <!-- Title -->
                 <div class="mb-4">
                     <x-input-label for="title" :value="__('Auction Title')" />
                     <x-text-input id="title" class="mt-1 block w-full" type="text" name="title"
@@ -18,7 +17,6 @@
                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                 </div>
 
-                <!-- Description -->
                 <div class="mb-4">
                     <x-input-label for="description" :value="__('Description')" />
                     <textarea id="description" name="description" rows="5"
@@ -27,7 +25,6 @@
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
 
-                <!-- Starting Price -->
                 <div class="mb-4">
                     <x-input-label for="starting_price" :value="__('Starting Price ($)')" />
                     <x-text-input id="starting_price" class="mt-1 block w-full" type="number" name="starting_price"
@@ -35,7 +32,6 @@
                     <x-input-error :messages="$errors->get('starting_price')" class="mt-2" />
                 </div>
 
-                <!-- Start Time -->
                 <div class="mb-4">
                     <x-input-label for="start_time" :value="__('Start Time')" />
                     <x-text-input id="start_time" class="mt-1 block w-full" type="datetime-local" name="start_time"
@@ -43,7 +39,6 @@
                     <x-input-error :messages="$errors->get('start_time')" class="mt-2" />
                 </div>
 
-                <!-- End Time -->
                 <div class="mb-4">
                     <x-input-label for="end_time" :value="__('End Time')" />
                     <x-text-input id="end_time" class="mt-1 block w-full" type="datetime-local" name="end_time"
@@ -51,7 +46,6 @@
                     <x-input-error :messages="$errors->get('end_time')" class="mt-2" />
                 </div>
 
-                <!-- Image Upload -->
                 <div class="mb-4">
                     <x-input-label for="image" :value="__('Item Image (optional)')" />
                     <input type="file" id="image" name="image" accept="image/*"

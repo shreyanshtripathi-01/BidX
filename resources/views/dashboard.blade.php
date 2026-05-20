@@ -7,7 +7,6 @@
 
     <div class="space-y-6 pt-2">
 
-        <!-- Awaiting Checkout Panel (Unpaid Won Lots) -->
         @if($unpaidWon->isNotEmpty())
             <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-250 dark:border-[#C5A880]/30 rounded-lg p-6 shadow-sm space-y-4">
                 <div class="flex items-center space-x-2">
@@ -33,9 +32,8 @@
             </div>
         @endif
 
-        <!-- Member Analytics Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Stat Card 1 -->
+            
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                 <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Total Bids Placed</p>
                 <div class="flex items-baseline mt-2">
@@ -46,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Stat Card 2 -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                 <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Committed Bid Value</p>
                 <div class="flex items-baseline mt-2">
@@ -56,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Stat Card 3 -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                 <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Auctions Won</p>
                 <div class="flex items-baseline mt-2">
@@ -67,7 +63,6 @@
                 </div>
             </div>
 
-            <!-- Stat Card 4 -->
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 p-6 rounded-lg shadow-sm">
                 <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Completed Purchases</p>
                 <div class="flex items-baseline mt-2">
@@ -79,7 +74,6 @@
             </div>
         </div>
 
-        <!-- Premium Tab Switcher -->
         <div class="flex border-b border-gray-150 dark:border-zinc-900" id="dashboardTabs">
             <button onclick="switchTab('bidding')" id="tabBtn-bidding" class="px-5 py-3 text-xs font-bold border-b-2 border-amber-500 text-amber-600 dark:text-[#C5A880] transition duration-150">
                 My Bidding Activity
@@ -89,9 +83,8 @@
             </button>
         </div>
 
-        <!-- Tab 1: Bidding & Watchlist Panel Grid -->
         <div id="tabContent-bidding" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Ongoing Bids (Col Span 2) -->
+            
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
@@ -181,9 +174,8 @@
                 </div>
             </div>
 
-            <!-- Sidebar Column (Watchlist Panel & Quick Bid Live Lots) -->
             <div class="space-y-6">
-                <!-- Watchlist Panel -->
+                
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 bg-gray-50/50 dark:bg-[#121212]/50">
                         <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">My Watchlist</h3>
@@ -203,7 +195,7 @@
                                     </div>
                                 </div>
                                 <div class="shrink-0 flex items-center space-x-3">
-                                    <!-- Remove from Watchlist -->
+                                    
                                     <form action="{{ route('watchlist.toggle', $item) }}" method="POST" class="inline">
                                         @csrf
                                         <button type="submit" class="p-1 text-amber-500 hover:text-gray-400 transition" title="Remove Watch">
@@ -223,7 +215,6 @@
                     </div>
                 </div>
 
-                <!-- Explore / Suggest Open Lots -->
                 <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                     <div class="p-6 border-b border-gray-100 dark:border-zinc-900 bg-gray-50/50 dark:bg-[#121212]/50">
                         <h3 class="text-base font-bold text-gray-900 dark:text-zinc-100">Quick Bid Live Lots</h3>
@@ -266,7 +257,6 @@
             </div>
         </div>
 
-        <!-- Tab 2: Seller's Own Listings (Hidden by default) -->
         <div id="tabContent-listings" class="hidden">
             <div class="bg-white dark:bg-[#121212] border border-gray-150 dark:border-zinc-900 rounded-lg overflow-hidden shadow-sm">
                 <div class="p-6 border-b border-gray-100 dark:border-zinc-900 flex justify-between items-center bg-gray-50/50 dark:bg-[#121212]/50">
@@ -300,7 +290,6 @@
 
     </div>
 
-    <!-- Tab switcher JS -->
     <script>
         function switchTab(tab) {
             const biddingBtn = document.getElementById('tabBtn-bidding');

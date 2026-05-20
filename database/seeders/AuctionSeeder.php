@@ -13,7 +13,6 @@ class AuctionSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Create 10 Mock Indian Members + Test User
         $usersData = [
             [
                 'name' => 'Rajesh Kumar',
@@ -88,17 +87,14 @@ class AuctionSeeder extends Seeder
             $users[] = User::updateOrCreate(['email' => $userData['email']], $userData);
         }
 
-        // Default test user
         $testUser = User::where('email', 'test@gmail.com')->first();
         if ($testUser) {
             $users[] = $testUser;
         }
 
-        // 2. Clear out existing auctions/bids
         Auction::query()->delete();
         Bid::query()->delete();
 
-        // 3. Indian Heritage Collectibles
         $auctionsData = [
             [
                 'title' => 'Vintage Royal Enfield Bullet 350 (1982)',
@@ -145,7 +141,7 @@ class AuctionSeeder extends Seeder
                 'description' => 'A gorgeous 18" x 24" traditional Tanjore painting of Lord Ganesha seated on a throne. Made by traditional temple artisans in Thanjavur using natural colours, hand-cut glass stones, and real 22-karat gold foil relief work.',
                 'starting_price' => 45000.00,
                 'start_time' => now()->subDays(5),
-                'end_time' => now()->subHour(), // Ended recently
+                'end_time' => now()->subHour(),
                 'status' => 'ended',
                 'is_featured' => false,
                 'image' => null,
@@ -192,10 +188,9 @@ class AuctionSeeder extends Seeder
             ]
         ];
 
-        // 4. Seed Auctions & corresponding Mock Bids
         foreach ($auctionsData as $index => $auc) {
             $owner = $users[$index % count($users)];
-            
+
             $auction = Auction::create([
                 'user_id' => $owner->id,
                 'title' => $auc['title'],
@@ -209,21 +204,18 @@ class AuctionSeeder extends Seeder
                 'image' => $auc['image'],
             ]);
 
-            // Potential unique bidders (everyone except the owner)
             $potentialBidders = array_filter($users, function($u) use ($owner) {
                 return $u->id !== $owner->id;
             });
 
             shuffle($potentialBidders);
 
-            // Seed 2 to 4 unique bids
             $numBids = rand(2, 4);
             $biddersForAuction = array_slice($potentialBidders, 0, $numBids);
 
             $bidAmount = $auction->starting_price;
-            
+
             foreach ($biddersForAuction as $b => $bidder) {
-                // Increment bid logically in INR increments
                 $bidAmount += rand(2000, 15000);
 
                 Bid::create([
@@ -234,12 +226,10 @@ class AuctionSeeder extends Seeder
                 ]);
             }
 
-            // Update current price
             if ($numBids > 0) {
                 $auction->update(['current_price' => $bidAmount]);
             }
 
-            // End details
             if ($auction->status === 'ended') {
                 $winnerBid = $auction->bids()->orderBy('amount', 'desc')->first();
                 if ($winnerBid) {
@@ -255,7 +245,6 @@ class AuctionSeeder extends Seeder
             }
         }
 
-        // Seed Watchlist Items for Test User
         if ($testUser) {
             $activeLots = Auction::where('status', 'active')->take(2)->get();
             foreach ($activeLots as $lot) {

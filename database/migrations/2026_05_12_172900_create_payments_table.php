@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('auction_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2);
-            $table->string('status')->default('pending'); // pending, completed, failed
+            $table->string('status')->default('pending');
             $table->string('transaction_id')->nullable();
             $table->timestamps();
 
