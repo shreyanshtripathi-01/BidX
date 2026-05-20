@@ -114,6 +114,7 @@ class BidController extends Controller
             $auction->current_price = $validated['amount'];
             $auction->save();
 
+            // Notify the previous highest bidder (non-critical, don't let it break bidding)
             if ($highestBid && $highestBid->user_id !== Auth::id()) {
                 try {
                     Notification::create([
@@ -124,13 +125,13 @@ class BidController extends Controller
                         'auction_id' => $auction->id,
                         'is_read' => false,
                     ]);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     \Log::error('Failed to create outbid notification: ' . $e->getMessage());
                 }
 
                 try {
                     Mail::to($highestBid->user->email)->send(new BidOutbid($auction, Auth::user()->name));
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     \Log::error('Failed to send outbid email: ' . $e->getMessage());
                 }
             }
@@ -150,11 +151,11 @@ class BidController extends Controller
                 'success' => false,
                 'message' => $e->validator->errors()->first(),
             ], 422);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             \Log::error('Bid placement failed: ' . $e->getMessage() . ' | Trace: ' . $e->getTraceAsString());
             return response()->json([
                 'success' => false,
-                'message' => 'An unexpected error occurred while placing your bid. Please try again.',
+                'message' => 'DEBUG ERROR: ' . $e->getMessage() . ' on line ' . $e->getLine(),
             ], 500);
         }
     }
