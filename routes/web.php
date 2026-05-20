@@ -151,25 +151,5 @@ Route::prefix('api')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Temporary route to fully seed production database
-Route::get('/seed-production', function () {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
-            '--seed' => true,
-            '--force' => true
-        ]);
-        return 'SUCCESS: Production database wiped, migrated, and SEEDED! You can now log in using shreyansh@bidx.com / password';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
 
-Route::get('/get-logs', function () {
-    $logFile = storage_path('logs/laravel.log');
-    if (!file_exists($logFile)) return 'No logs found.';
-    
-    // Get last 100 lines of log
-    $lines = file($logFile);
-    $lastLines = array_slice($lines, -100);
-    return response('<pre>' . implode("", $lastLines) . '</pre>');
-});
+// Debug routes removed for production security
