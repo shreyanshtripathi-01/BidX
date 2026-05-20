@@ -163,3 +163,13 @@ Route::get('/seed-production', function () {
         return 'Error: ' . $e->getMessage();
     }
 });
+
+Route::get('/get-logs', function () {
+    $logFile = storage_path('logs/laravel.log');
+    if (!file_exists($logFile)) return 'No logs found.';
+    
+    // Get last 100 lines of log
+    $lines = file($logFile);
+    $lastLines = array_slice($lines, -100);
+    return response('<pre>' . implode("", $lastLines) . '</pre>');
+});
