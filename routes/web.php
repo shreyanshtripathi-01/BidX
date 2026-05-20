@@ -146,7 +146,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
 Route::prefix('api')->group(function () {
     Route::get('/auctions', [AuctionController::class, 'apiIndex'])->name('api.auctions.index');
     Route::get('/auctions/{auction}', [AuctionController::class, 'apiShow'])->name('api.auctions.show');
-    Route::post('/auctions/{auction}/bid', [BidController::class, 'apiStore'])->middleware('auth:sanctum')->name('api.bids.store');
+    Route::post('/auctions/{auction}/bid', [BidController::class, 'apiStore'])->middleware('auth')->name('api.bids.store');
 });
 
 require __DIR__.'/auth.php';
