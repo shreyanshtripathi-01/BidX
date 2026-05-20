@@ -127,3 +127,12 @@ Route::prefix('api')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/get-logs', function () {
+    $logFile = storage_path('logs/laravel.log');
+    if (!file_exists($logFile)) return 'No logs found.';
+    
+    $lines = file($logFile);
+    $lastLines = array_slice($lines, -100);
+    return response('<pre>' . implode("", $lastLines) . '</pre>');
+});
