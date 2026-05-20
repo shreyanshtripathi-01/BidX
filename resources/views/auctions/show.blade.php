@@ -151,55 +151,55 @@
             @endif
         </div>
     </div>
-</x-app-layout>
 
-@push('scripts')
-<script>
-    document.getElementById('bidForm')?.addEventListener('submit', async function(e) {
-        e.preventDefault();const formData = new FormData(this);
-        const btn = document.getElementById('bidBtn');
-        const messageDiv = document.getElementById('bidMessage');
+    @push('scripts')
+    <script>
+        document.getElementById('bidForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();const formData = new FormData(this);
+            const btn = document.getElementById('bidBtn');
+            const messageDiv = document.getElementById('bidMessage');
 
-        btn.disabled = true;
-        btn.textContent = 'Placing Bid...';
+            btn.disabled = true;
+            btn.textContent = 'Placing Bid...';
 
-        try {
-            const response = await fetch('{{ route("api.bids.store", $auction) }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Accept': 'application/json'
-                },
-                body: formData
-            });
+            try {
+                const response = await fetch('{{ route("api.bids.store", $auction) }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if (data.success) {
-                messageDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">' + data.message + '</div>';
-                const newMin = Math.ceil(data.bid.amount + 1);
-                document.getElementById('bidAmount').min = newMin;
-                document.getElementById('bidAmount').placeholder = 'Min bid: ₹' + newMin.toLocaleString('en-IN');
-                document.getElementById('bidAmount').value = '';
+                if (data.success) {
+                    messageDiv.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">' + data.message + '</div>';
+                    const newMin = Math.ceil(data.bid.amount + 1);
+                    document.getElementById('bidAmount').min = newMin;
+                    document.getElementById('bidAmount').placeholder = 'Min bid: ₹' + newMin.toLocaleString('en-IN');
+                    document.getElementById('bidAmount').value = '';
 
-                const bidsList = document.getElementById('bidsList');
-                if (bidsList) {
-                    bidsList.insertAdjacentHTML('afterbegin',
-                        '<div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-100">' +
-                        '<div><span class="font-medium text-gray-900">' + data.bid.user_name + ' (You)</span>' +
-                        '<span class="text-sm text-gray-500 ml-2">Just now</span></div>' +
-                        '<span class="font-bold text-green-600">₹' + Math.ceil(data.bid.amount).toLocaleString('en-IN') + '</span></div>'
-                    );
+                    const bidsList = document.getElementById('bidsList');
+                    if (bidsList) {
+                        bidsList.insertAdjacentHTML('afterbegin',
+                            '<div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-100">' +
+                            '<div><span class="font-medium text-gray-900">' + data.bid.user_name + ' (You)</span>' +
+                            '<span class="text-sm text-gray-500 ml-2">Just now</span></div>' +
+                            '<span class="font-bold text-green-600">₹' + Math.ceil(data.bid.amount).toLocaleString('en-IN') + '</span></div>'
+                        );
+                    }
+                } else {
+                    messageDiv.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">' + data.message + '</div>';
                 }
-            } else {
-                messageDiv.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">' + data.message + '</div>';
+            } catch (error) {
+                messageDiv.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">An error occurred. Please try again.</div>';
             }
-        } catch (error) {
-            messageDiv.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">An error occurred. Please try again.</div>';
-        }
 
-        btn.disabled = false;
-        btn.textContent = 'Place Bid';
-    });
-</script>
-@endpush
+            btn.disabled = false;
+            btn.textContent = 'Place Bid';
+        });
+    </script>
+    @endpush
+</x-app-layout>
