@@ -13,6 +13,29 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/seed-notifications', function () {
+    $user = auth()->user();
+    if (!$user) return 'Please log in first.';
+    
+    \App\Models\Notification::create([
+        'user_id' => $user->id,
+        'type' => 'system',
+        'title' => 'New Auction Available',
+        'message' => 'A rare vintage item has just been listed. Check it out before it\'s gone!',
+        'is_read' => false,
+    ]);
+    
+    \App\Models\Notification::create([
+        'user_id' => $user->id,
+        'type' => 'system',
+        'title' => 'Exclusive Lot Opened',
+        'message' => 'A premium limited edition collection is now accepting bids.',
+        'is_read' => false,
+    ]);
+    
+    return 'Notifications seeded successfully! Please go back to your dashboard.';
+});
+
 Route::get('/auctions', [AuctionController::class, 'index'])->name('auctions.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
