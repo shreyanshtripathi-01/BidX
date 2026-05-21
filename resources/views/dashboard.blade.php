@@ -100,11 +100,11 @@
                             <table class="min-w-full divide-y divide-gray-150 dark:divide-zinc-900">
                                 <thead class="bg-gray-50 dark:bg-[#121212]/50">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Item Details</th>
+                                        <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Auction</th>
                                         <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Your Bid</th>
-                                        <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Current High</th>
+                                        <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Top Bid</th>
                                         <th class="px-6 py-3 text-left text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-right text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Actions</th>
+                                        <th class="px-6 py-3 text-right text-xxs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-[#121212] divide-y divide-gray-150 dark:divide-zinc-900">
@@ -112,7 +112,7 @@
                                         @php
                                             $isWinning = $bid->auction->isUserWinning(Auth::user());
                                         @endphp
-                                        <tr class="hover:bg-gray-50/30 dark:hover:bg-zinc-900/10 transition duration-150 {{ $bid->auction->status === 'active' ? ($isWinning ? 'border-l-4 border-l-green-500' : 'border-l-4 border-l-rose-500') : '' }}">
+                                        <tr class="hover:bg-gray-50/30 dark:hover:bg-zinc-900/10 transition duration-150 border-b border-gray-150 dark:border-zinc-900">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-semibold text-gray-900 dark:text-zinc-200">
                                                     {{ $bid->auction->title }}
