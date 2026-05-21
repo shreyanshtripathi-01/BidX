@@ -134,11 +134,11 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 @if($bid->auction->status === 'active')
                                                     @if($isWinning)
-                                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xxs font-bold bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400">
-                                                            Winning
+                                                        <span class="text-xs font-semibold text-green-600 dark:text-green-400">
+                                                            Highest Bidder
                                                         </span>
                                                     @else
-                                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xxs font-bold bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-450">
+                                                        <span class="text-xs font-semibold text-rose-600 dark:text-rose-400">
                                                             Outbid
                                                         </span>
                                                     @endif

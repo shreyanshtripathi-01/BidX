@@ -7,11 +7,7 @@
 
     <div class="py-12 bg-gray-50 dark:bg-[#0A0A0A] min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="mb-6 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-800/40 text-green-700 dark:text-green-400 px-4 py-3 rounded-lg relative">
-                    {{ session('success') }}
-                </div>
-            @endif
+
 
             @if($notifications->isNotEmpty())
                 <div class="space-y-4">
